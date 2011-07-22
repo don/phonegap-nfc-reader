@@ -65,17 +65,18 @@ var ready = function() {
         console.log("Listening for tags with mime type " + tagMimeType);
     }
 
-    function fail() {
-        alert('Failed to register mime type ' + tagMimeType + ' with NFC');
+    function fail(reason) {
+        //alert('Failed to register mime type ' + tagMimeType + ' with NFC');
+        alert(reason);
     }
 
     navigator.nfc.addMimeTypeListener(tagMimeType, myNfcListener, win, fail);
     navigator.nfc.addNdefListener(function() {
         alert("This is an NDEF tag but doesn't have the mime type (" + tagMimeType + ") we're looking for.");
-    });
+    }, win, fail);
     navigator.nfc.addNdefFormattableListener(function() {
-        alert("This tag is formattable");
-    });
+        alert("This tag is formatable");
+    }, win, fail);
 
     showInstructions();
 
