@@ -29,6 +29,10 @@ function clearScreen() {
     document.getElementById("tagContents").innerHTML = "";
 }
 
+function showText(text) {
+    document.getElementById("tagContents").innerHTML = text;    
+}
+
 function showInstructions() {
     document.getElementById("tagContents").innerHTML =
     "<div id='instructions'>" +
@@ -66,20 +70,33 @@ var ready = function() {
     }
 
     function fail(reason) {
-        //alert('Failed to register mime type ' + tagMimeType + ' with NFC');
-        alert(reason);
+        navigator.notification.alert(reason, function() {}, "There was a problem");
     }
 
     navigator.nfc.addMimeTypeListener(tagMimeType, myNfcListener, win, fail);
-    navigator.nfc.addNdefListener(function() {
-        alert("This is an NDEF tag but doesn't have the mime type (" + tagMimeType + ") we're looking for.");
-    }, win, fail);
-    navigator.nfc.addNdefFormattableListener(function() {
-        alert("This tag is formatable");
-    }, win, fail);
+    
+    navigator.nfc.addNdefListener(
+        function() {
+            showText("This is an NDEF tag but doesn't match the mime type " + tagMimeType + ".");
+        },
+        function() {
+            console.log("Listening for NDEF tags.");
+        },
+        fail
+    );
+    
+    navigator.nfc.addNdefFormattableListener(
+        function() {
+            showText("This tag is formatable");
+        },
+        function() {
+            console.log("Listening for tags that can be formatted.");
+        },
+        fail
+    );
 
     showInstructions();
-
+    
 };
 
 document.addEventListener("menubutton", showInstructions, false);
