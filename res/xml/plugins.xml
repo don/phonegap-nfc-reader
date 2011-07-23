@@ -10,12 +10,12 @@
     <plugin name="Contacts" value="com.phonegap.ContactManager"/>
     <plugin name="Crypto" value="com.phonegap.CryptoHandler"/>
     <plugin name="File" value="com.phonegap.FileUtils"/>
-    <plugin name="Location" value="com.phonegap.GeoBroker"/>
+    <!-- <plugin name="Location" value="com.phonegap.GeoBroker"/> -->
     <plugin name="Network Status" value="com.phonegap.NetworkManager"/>
     <plugin name="Notification" value="com.phonegap.Notification"/>
     <plugin name="Storage" value="com.phonegap.Storage"/>
     <plugin name="Temperature" value="com.phonegap.TempListener"/>
     <plugin name="FileTransfer" value="com.phonegap.FileTransfer"/>
     <plugin name="Capture" value="com.phonegap.Capture"/>
-    <plugin name="NdefPlugin" value="com.chariotsolutions.nfc.plugin.NdefPlugin"/>
+    <plugin name="NdefPlugin" value="com.chariotsolutions.nfc.plugin.NdefPlugin" load-on-startup="true"/>
 </plugins>

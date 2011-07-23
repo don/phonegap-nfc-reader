@@ -1051,8 +1051,6 @@ PhoneGap.addConstructor(function() {
     }
 });
 }
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -1063,6 +1061,7 @@ PhoneGap.addConstructor(function() {
 
 if (!PhoneGap.hasResource("app")) {
 PhoneGap.addResource("app");
+(function() {
 
 /**
  * Constructor
@@ -1134,11 +1133,10 @@ App.prototype.exitApp = function() {
 };
 
 PhoneGap.addConstructor(function() {
-    navigator.app = window.app = new App();
+    navigator.app = new App();
 });
+}());
 }
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -1219,6 +1217,12 @@ Camera.prototype.getPicture = function(successCallback, errorCallback, options) 
     if (options.quality) {
         quality = this.options.quality;
     }
+    
+    var maxResolution = 0;
+    if (options.maxResolution) {
+    	maxResolution = this.options.maxResolution;
+    }
+    
     var destinationType = Camera.DestinationType.DATA_URL;
     if (this.options.destinationType) {
         destinationType = this.options.destinationType;
@@ -1227,7 +1231,7 @@ Camera.prototype.getPicture = function(successCallback, errorCallback, options) 
     if (typeof this.options.sourceType === "number") {
         sourceType = this.options.sourceType;
     }
-    PhoneGap.exec(successCallback, errorCallback, "Camera", "takePicture", [quality, destinationType, sourceType]);
+    PhoneGap.exec(successCallback, errorCallback, "Camera", "takePicture", [quality, destinationType, sourceType, maxResolution]);
 };
 
 PhoneGap.addConstructor(function() {
@@ -1236,8 +1240,6 @@ PhoneGap.addConstructor(function() {
     }
 });
 }
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -1428,9 +1430,7 @@ PhoneGap.addConstructor(function(){
 		navigator.device.capture = window.device.capture = new Capture();
 	}
 });
-}
-
-/*
+}/*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
  *
@@ -1549,8 +1549,6 @@ PhoneGap.addConstructor(function() {
     }
 });
 }
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -1861,8 +1859,6 @@ PhoneGap.addConstructor(function() {
     }
 });
 }
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -1906,8 +1902,6 @@ PhoneGap.addConstructor(function() {
     }
 });
 }
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -2013,8 +2007,6 @@ PhoneGap.addConstructor(function() {
     }
 });
 }
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -3074,8 +3066,6 @@ PhoneGap.addConstructor(function() {
     if(typeof window.resolveLocalFileSystemURI == "undefined") window.resolveLocalFileSystemURI = pgLocalFileSystem.resolveLocalFileSystemURI;
 });
 }
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -3161,8 +3151,6 @@ var FileUploadOptions = function(fileKey, fileName, mimeType, params) {
     this.params = params || null;
 };
 }
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -3361,17 +3349,6 @@ PhoneGap.addConstructor(function() {
     }
 });
 }
-
-
-/*
- * PhoneGap is available under *either* the terms of the modified BSD license *or* the
- * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
- *
- * Copyright (c) 2005-2010, Nitobi Software Inc.
- * Copyright (c) 2010, IBM Corporation
- */
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -3437,6 +3414,7 @@ var Media = function(src, successCallback, errorCallback, statusCallback, positi
 // Media messages
 Media.MEDIA_STATE = 1;
 Media.MEDIA_DURATION = 2;
+Media.MEDIA_POSITION = 3;
 Media.MEDIA_ERROR = 9;
 
 // Media states
@@ -3561,7 +3539,6 @@ PhoneGap.Media.getMediaObject = function(id) {
  */
 PhoneGap.Media.onStatus = function(id, msg, value) {
     var media = PhoneGap.mediaObjects[id];
-
     // If state update
     if (msg === Media.MEDIA_STATE) {
         if (value === Media.MEDIA_STOPPED) {
@@ -3581,10 +3558,11 @@ PhoneGap.Media.onStatus = function(id, msg, value) {
             media.errorCallback(value);
         }
     }
+    else if (msg == Media.MEDIA_POSITION) {
+        media._position = value;
+    }
 };
 }
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -3667,8 +3645,6 @@ PhoneGap.addConstructor(function() {
     }
 });
 }
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -3791,8 +3767,6 @@ PhoneGap.addConstructor(function() {
     }
 });
 }
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -3882,8 +3856,6 @@ PositionError.PERMISSION_DENIED = 1;
 PositionError.POSITION_UNAVAILABLE = 2;
 PositionError.TIMEOUT = 3;
 }
-
-
 /*
  * PhoneGap is available under *either* the terms of the modified BSD license *or* the
  * MIT License (2008). See http://opensource.org/licenses/alphabetical for full text.
@@ -4312,5 +4284,3 @@ PhoneGap.addConstructor(function() {
     }
 });
 }
-
-
