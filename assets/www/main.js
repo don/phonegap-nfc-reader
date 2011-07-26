@@ -25,6 +25,16 @@ function template(record) {
     );
 }
 
+function showProperty(parent, name, value) {
+    var dt, dd;
+    dt = document.createElement("dt");
+    dt.innerHTML = name;
+    dd = document.createElement("dd");
+    dd.innerHTML = value;
+    parent.appendChild(dt);
+    parent.appendChild(dd);
+}
+
 function clearScreen() {
     document.getElementById("tagContents").innerHTML = "";
 }
@@ -43,20 +53,28 @@ function showInstructions() {
 }
 
 function myNfcListener(nfcEvent) {
-    console.log(JSON.stringify(nfcEvent.tagData));
+    console.log(JSON.stringify(nfcEvent.tag));
     clearScreen();
 
-    var records = nfcEvent.tagData,
+    var tag = nfcEvent.tag;    
+    var records = tag.ndefMessage,
     display = document.getElementById("tagContents");
-    display.appendChild(document.createTextNode(
-    "Scanned a NDEF tag with " + records.length + " record" + ((records.length === 1) ? "": "s"))
+    display.appendChild(
+        document.createTextNode(
+            "Scanned a NDEF tag with " + records.length + " record" + ((records.length === 1) ? "": "s")
+        )
     );
+    
+    var meta = document.createElement('dl');
+    display.appendChild(meta);
+    showProperty(meta, "Type", tag.type);
+    showProperty(meta, "Max Size", tag.maxSize + " bytes");
+    showProperty(meta, "Is Writable", tag.isWritable);
+    showProperty(meta, "Can Make Read Only?", tag.canMakeReadOnly);
 
     for (var i = 0; i < records.length; i++) {
-
         var record = records[i],
         p = document.createElement('p');
-
         p.innerHTML = template(record);
         display.appendChild(p);
     }
@@ -85,12 +103,12 @@ var ready = function() {
         fail
     );
     
-    navigator.nfc.addNdefFormattableListener(
+    navigator.nfc.addNdefFormatableListener(
         function() {
             showText("This tag is formatable");
         },
         function() {
-            console.log("Listening for tags that can be formatted.");
+            console.log("Listening for tags that can be NDEF formatted.");
         },
         fail
     );

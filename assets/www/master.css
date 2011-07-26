@@ -26,3 +26,17 @@ h1 {
   border-bottom: 1px solid #000;
   padding: 0 10px 10px 10px;
 }
+
+dt {
+  float: left;
+  margin-right: 0.25em;
+}
+
+dt:after
+{
+    content:": ";
+}
+
+dd {
+  font-weight: bold;
+}

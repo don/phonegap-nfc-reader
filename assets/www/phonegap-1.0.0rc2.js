@@ -3414,7 +3414,6 @@ var Media = function(src, successCallback, errorCallback, statusCallback, positi
 // Media messages
 Media.MEDIA_STATE = 1;
 Media.MEDIA_DURATION = 2;
-Media.MEDIA_POSITION = 3;
 Media.MEDIA_ERROR = 9;
 
 // Media states
@@ -3539,6 +3538,7 @@ PhoneGap.Media.getMediaObject = function(id) {
  */
 PhoneGap.Media.onStatus = function(id, msg, value) {
     var media = PhoneGap.mediaObjects[id];
+
     // If state update
     if (msg === Media.MEDIA_STATE) {
         if (value === Media.MEDIA_STOPPED) {
@@ -3557,9 +3557,6 @@ PhoneGap.Media.onStatus = function(id, msg, value) {
         if (media.errorCallback) {
             media.errorCallback(value);
         }
-    }
-    else if (msg == Media.MEDIA_POSITION) {
-        media._position = value;
     }
 };
 }
