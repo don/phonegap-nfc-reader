@@ -57,7 +57,7 @@ function myNfcListener(nfcEvent) {
     clearScreen();
 
     var tag = nfcEvent.tag;    
-    var records = tag.ndefMessage,
+    var records = tag.ndefMessage || [],
     display = document.getElementById("tagContents");
     display.appendChild(
         document.createTextNode(
@@ -70,7 +70,7 @@ function myNfcListener(nfcEvent) {
     showProperty(meta, "Type", tag.type);
     showProperty(meta, "Max Size", tag.maxSize + " bytes");
     showProperty(meta, "Is Writable", tag.isWritable);
-    showProperty(meta, "Can Make Read Only?", tag.canMakeReadOnly);
+    showProperty(meta, "Can Make Read Only", tag.canMakeReadOnly);
 
     for (var i = 0; i < records.length; i++) {
         var record = records[i],
@@ -94,9 +94,10 @@ var ready = function() {
     navigator.nfc.addMimeTypeListener(tagMimeType, myNfcListener, win, fail);
     
     navigator.nfc.addNdefListener(
-        function() {
-            showText("This is an NDEF tag but doesn't match the mime type " + tagMimeType + ".");
-        },
+//        function() {
+//            showText("This is an NDEF tag but doesn't match the mime type " + tagMimeType + ".");
+//        },
+        myNfcListener,
         function() {
             console.log("Listening for NDEF tags.");
         },
