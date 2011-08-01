@@ -106,7 +106,8 @@ var ready = function() {
     
     navigator.nfc.addNdefFormatableListener(
         function() {
-            showText("This tag is formatable");
+            navigator.notification.vibrate(100);
+            showText("This tag is can be NDEF formatted.    ");
         },
         function() {
             console.log("Listening for tags that can be NDEF formatted.");
