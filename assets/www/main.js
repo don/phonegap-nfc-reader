@@ -2,21 +2,21 @@
 var tagMimeType = "text/pg";
 
 function template(record) {
-    var recordType = Ndef.bytesToString(record.type),
+    var recordType = navigator.nfc.util.bytesToString(record.type),
     payload;
 
     if (recordType === "T") {
         var langCodeLength = record.payload[0],
         text = record.payload.slice((1 + langCodeLength), record.payload.length);
 
-        payload = Ndef.bytesToString(text);
+        payload = navigator.nfc.util.bytesToString(text);
 
     } else if (recordType === "U") {
-        var url = Ndef.bytesToString(record.payload);
+        var url =  navigator.nfc.util.bytesToString(record.payload);
         payload = "<a href='" + url + "'>" + url + "<\/a>";
 
     } else {
-        payload = Ndef.bytesToString(record.payload);
+        payload = navigator.nfc.util.bytesToString(record.payload);
 
     }
 

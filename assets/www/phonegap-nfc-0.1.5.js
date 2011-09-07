@@ -4,12 +4,12 @@ PhoneGap.addConstructor(
     function () {
         PhoneGap.exec(
             function () {
-                console.log("Initialized the NdefPlugin");
+                console.log("Initialized the NFCPlugin");
             },
             function (reason) {
-                alert("Failed to initialize the NdefPlugin " + reason);
+                alert("Failed to initialize the NFCPlugin " + reason);
             },
-            "NdefPlugin", "init", []
+            "NFCPlugin", "init", []
         )
     }
 );
@@ -68,10 +68,10 @@ var Ndef = {
         if (!id) { id = []; }   
         
         payload.push(languageCode.length);        
-        Ndef.concatArray(payload, Ndef.stringToBytes(languageCode));
-        Ndef.concatArray(payload, Ndef.stringToBytes(text));
+        navigator.nfc.util.concatArray(payload, navigator.nfc.util.stringToBytes(languageCode));
+        navigator.nfc.util.concatArray(payload, navigator.nfc.util.stringToBytes(text));
 
-        return Ndef.record(Ndef.TNF_WELL_KNOWN, Ndef.RTD_TEXT, id, payload);
+        return NFC.record(Ndef.TNF_WELL_KNOWN, Ndef.RTD_TEXT, id, payload);
     },
 
     /**
@@ -82,7 +82,7 @@ var Ndef = {
      */
     uriRecord: function (text, id) {
         if (!id) { id = []; }   
-        return Ndef.record(Ndef.TNF_ABSOLUTE_URI, Ndef.RTD_URI, id, Ndef.stringToBytes(text));
+        return Ndef.record(Ndef.TNF_ABSOLUTE_URI, Ndef.RTD_URI, id, navigator.nfc.util.stringToBytes(text));
     },
 
     /**
@@ -94,16 +94,18 @@ var Ndef = {
      */    
     mimeMediaRecord: function (mimeType, payload, id) {
         if (!id) { id = []; }   
-        return Ndef.record(Ndef.TNF_MIME_MEDIA, Ndef.stringToBytes(mimeType), id, payload);
-    },
-    
+        return Ndef.record(Ndef.TNF_MIME_MEDIA, navigator.nfc.util.stringToBytes(mimeType), id, payload);
+    }
+};
+
+var Util = {
     concatArray: function (a1, a2) { // this isn't built in?
         for (var i = 0; i < a2.length; i++) {
             a1.push(a2[i]);
         }
         return a1;
     },
-    
+
     bytesToString: function (bytes) {
       var bytesAsString = "";
       for (var i = 0; i < bytes.length; i++) {
@@ -111,17 +113,17 @@ var Ndef = {
       }
       return bytesAsString;
     },
-    
+
     // http://stackoverflow.com/questions/1240408/reading-bytes-from-a-javascript-string#1242596
     stringToBytes: function ( str ) {
         var ch, st, re = [];
         for (var i = 0; i < str.length; i++ ) {
-          ch = str.charCodeAt(i);  // get char 
+          ch = str.charCodeAt(i);  // get char
           st = [];                 // set up "stack"
           do {
             st.push( ch & 0xFF );  // push byte to stack
             ch = ch >> 8;          // shift value down by 1 byte
-          }  
+          }
           while ( ch );
           // add stack contents to result
           // done because chars have "wrong" endianness
@@ -130,40 +132,80 @@ var Ndef = {
         // return an array of bytes
         return re;
     }
-    
 };
 
 navigator.nfc = {
 
+    addTagListener: function (callback, win, fail) {
+        document.addEventListener("tag", callback, false);
+        PhoneGap.exec(win, fail, "NFCPlugin", "registerTag", []);
+    },
+
     addMimeTypeListener: function (mimeType, callback, win, fail) {
         document.addEventListener("ndef-mime", callback, false);    
-        PhoneGap.exec(win, fail, "NdefPlugin", "registerMimeType", [mimeType]);
+        PhoneGap.exec(win, fail, "NFCPlugin", "registerMimeType", [mimeType]);
     },
     
     addNdefListener: function (callback, win, fail) {
         document.addEventListener("ndef", callback, false);                
-        PhoneGap.exec(win, fail, "NdefPlugin", "registerNdef", []);
+        PhoneGap.exec(win, fail, "NFCPlugin", "registerNdef", []);
     },
     
     addNdefFormatableListener: function (callback, win, fail) {
         document.addEventListener("ndef-formatable", callback, false);
-        PhoneGap.exec(win, fail, "NdefPlugin", "registerNdefFormatable", []);
+        PhoneGap.exec(win, fail, "NFCPlugin", "registerNdefFormatable", []);
     },
     
     writeTag: function (ndefMessage, win, fail) {
-      PhoneGap.exec(win, fail, "NdefPlugin", "writeTag", [ndefMessage]);
+      PhoneGap.exec(win, fail, "NFCPlugin", "writeTag", [ndefMessage]);
     },
 
     shareTag: function (ndefMessage, win, fail) {
-      PhoneGap.exec(win, fail, "NdefPlugin", "shareTag", [ndefMessage]);
+      PhoneGap.exec(win, fail, "NFCPlugin", "shareTag", [ndefMessage]);
     },
 
     unshareTag: function (win, fail) {
-      PhoneGap.exec(win, fail, "NdefPlugin", "unshareTag", []);
+      PhoneGap.exec(win, fail, "NFCPlugin", "unshareTag", []);
     },
 
     eraseTag: function (win, fail) {
-      PhoneGap.exec(win, fail, "NdefPlugin", "writeTag", [[]]);
+      PhoneGap.exec(win, fail, "NFCPlugin", "writeTag", [[]]);
     }
 
+};
+
+navigator.nfc.util = {
+    concatArray: function (a1, a2) { // this isn't built in?
+        for (var i = 0; i < a2.length; i++) {
+            a1.push(a2[i]);
+        }
+        return a1;
+    },
+
+    bytesToString: function (bytes) {
+      var bytesAsString = "";
+      for (var i = 0; i < bytes.length; i++) {
+        bytesAsString += String.fromCharCode(bytes[i]);
+      }
+      return bytesAsString;
+    },
+
+    // http://stackoverflow.com/questions/1240408/reading-bytes-from-a-javascript-string#1242596
+    stringToBytes: function ( str ) {
+        var ch, st, re = [];
+        for (var i = 0; i < str.length; i++ ) {
+          ch = str.charCodeAt(i);  // get char
+          st = [];                 // set up "stack"
+          do {
+            st.push( ch & 0xFF );  // push byte to stack
+            ch = ch >> 8;          // shift value down by 1 byte
+          }
+          while ( ch );
+          // add stack contents to result
+          // done because chars have "wrong" endianness
+          re = re.concat( st.reverse() );
+        }
+        // return an array of bytes
+        return re;
+    }
 };
