@@ -2,21 +2,21 @@
 var tagMimeType = "text/pg";
 
 function template(record) {
-    var recordType = navigator.nfc.util.bytesToString(record.type),
+    var recordType = nfc.bytesToString(record.type),
     payload;
 
     if (recordType === "T") {
         var langCodeLength = record.payload[0],
         text = record.payload.slice((1 + langCodeLength), record.payload.length);
 
-        payload = navigator.nfc.util.bytesToString(text);
+        payload = nfc.bytesToString(text);
 
     } else if (recordType === "U") {
-        var url =  navigator.nfc.util.bytesToString(record.payload);
+        var url =  nfc.bytesToString(record.payload);
         payload = "<a href='" + url + "'>" + url + "<\/a>";
 
     } else {
-        payload = navigator.nfc.util.bytesToString(record.payload);
+        payload = nfc.bytesToString(record.payload);
 
     }
 
@@ -91,9 +91,9 @@ var ready = function() {
         navigator.notification.alert(reason, function() {}, "There was a problem");
     }
 
-    navigator.nfc.addMimeTypeListener(tagMimeType, myNfcListener, win, fail);
+    nfc.addMimeTypeListener(tagMimeType, myNfcListener, win, fail);
     
-    navigator.nfc.addNdefListener(
+    nfc.addNdefListener(
 //        function() {
 //            showText("This is an NDEF tag but doesn't match the mime type " + tagMimeType + ".");
 //        },
@@ -104,7 +104,7 @@ var ready = function() {
         fail
     );
     
-    navigator.nfc.addNdefFormatableListener(
+    nfc.addNdefFormatableListener(
         function() {
             navigator.notification.vibrate(100);
             showText("This tag is can be NDEF formatted.    ");
