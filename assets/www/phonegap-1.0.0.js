@@ -565,7 +565,7 @@ PhoneGap.exec = function(success, fail, service, action, args) {
         }
 
         var r = prompt(PhoneGap.stringify(args), "gap:"+PhoneGap.stringify([service, action, callbackId, true]));
-        console.log("gap:"+PhoneGap.stringify([service, action, callbackId, true]));
+
         // If a result was returned
         if (r.length > 0) {
             eval("var v="+r+";");
