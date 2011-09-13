@@ -4,17 +4,17 @@ PhoneGap.addConstructor(
     function () {
         PhoneGap.exec(
             function () {
-                console.log("Initialized the NdefPlugin");
+                console.log("Initialized the NfcPlugin");
             },
             function (reason) {
-                alert("Failed to initialize the NdefPlugin " + reason);
+                alert("Failed to initialize the NfcPlugin " + reason);
             },
-            "NdefPlugin", "init", []
+            "NfcPlugin", "init", []
         )
     }
 );
 
-var Ndef = {
+var ndef = {
     // see android.nfc.NdefRecord for documentation about constants
     // http://developer.android.com/reference/android/nfc/NdefRecord.html
     TNF_EMPTY: 0x0,
@@ -68,10 +68,10 @@ var Ndef = {
         if (!id) { id = []; }   
         
         payload.push(languageCode.length);        
-        Ndef.concatArray(payload, Ndef.stringToBytes(languageCode));
-        Ndef.concatArray(payload, Ndef.stringToBytes(text));
+        nfc.concatArray(payload, nfc.stringToBytes(languageCode));
+        nfc.concatArray(payload, nfc.stringToBytes(text));
 
-        return Ndef.record(Ndef.TNF_WELL_KNOWN, Ndef.RTD_TEXT, id, payload);
+        return NFC.record(ndef.TNF_WELL_KNOWN, ndef.RTD_TEXT, id, payload);
     },
 
     /**
@@ -82,7 +82,7 @@ var Ndef = {
      */
     uriRecord: function (text, id) {
         if (!id) { id = []; }   
-        return Ndef.record(Ndef.TNF_ABSOLUTE_URI, Ndef.RTD_URI, id, Ndef.stringToBytes(text));
+        return ndef.record(ndef.TNF_ABSOLUTE_URI, ndef.RTD_URI, id, nfc.stringToBytes(text));
     },
 
     /**
@@ -94,16 +94,55 @@ var Ndef = {
      */    
     mimeMediaRecord: function (mimeType, payload, id) {
         if (!id) { id = []; }   
-        return Ndef.record(Ndef.TNF_MIME_MEDIA, Ndef.stringToBytes(mimeType), id, payload);
+        return ndef.record(ndef.TNF_MIME_MEDIA, nfc.stringToBytes(mimeType), id, payload);
+    }
+};
+
+var nfc = {
+
+    addTagDiscoveredListener: function (callback, win, fail) {
+        document.addEventListener("tag", callback, false);
+        PhoneGap.exec(win, fail, "NfcPlugin", "registerTag", []);
+    },
+
+    addMimeTypeListener: function (mimeType, callback, win, fail) {
+        document.addEventListener("ndef-mime", callback, false);    
+        PhoneGap.exec(win, fail, "NfcPlugin", "registerMimeType", [mimeType]);
     },
     
+    addNdefListener: function (callback, win, fail) {
+        document.addEventListener("ndef", callback, false);                
+        PhoneGap.exec(win, fail, "NfcPlugin", "registerNdef", []);
+    },
+    
+    addNdefFormatableListener: function (callback, win, fail) {
+        document.addEventListener("ndef-formatable", callback, false);
+        PhoneGap.exec(win, fail, "NfcPlugin", "registerNdefFormatable", []);
+    },
+    
+    write: function (ndefMessage, win, fail) {
+      PhoneGap.exec(win, fail, "NfcPlugin", "writeTag", [ndefMessage]);
+    },
+
+    share: function (ndefMessage, win, fail) {
+      PhoneGap.exec(win, fail, "NfcPlugin", "shareTag", [ndefMessage]);
+    },
+
+    unshare: function (win, fail) {
+      PhoneGap.exec(win, fail, "NfcPlugin", "unshareTag", []);
+    },
+
+    erase: function (win, fail) {
+      PhoneGap.exec(win, fail, "NfcPlugin", "writeTag", [[]]);
+    },
+
     concatArray: function (a1, a2) { // this isn't built in?
         for (var i = 0; i < a2.length; i++) {
             a1.push(a2[i]);
         }
         return a1;
     },
-    
+
     bytesToString: function (bytes) {
       var bytesAsString = "";
       for (var i = 0; i < bytes.length; i++) {
@@ -111,17 +150,17 @@ var Ndef = {
       }
       return bytesAsString;
     },
-    
+
     // http://stackoverflow.com/questions/1240408/reading-bytes-from-a-javascript-string#1242596
     stringToBytes: function ( str ) {
         var ch, st, re = [];
         for (var i = 0; i < str.length; i++ ) {
-          ch = str.charCodeAt(i);  // get char 
+          ch = str.charCodeAt(i);  // get char
           st = [];                 // set up "stack"
           do {
             st.push( ch & 0xFF );  // push byte to stack
             ch = ch >> 8;          // shift value down by 1 byte
-          }  
+          }
           while ( ch );
           // add stack contents to result
           // done because chars have "wrong" endianness
@@ -129,41 +168,23 @@ var Ndef = {
         }
         // return an array of bytes
         return re;
+    },
+
+    bytesToHexString: function (bytes) {
+      var bytesAsHexString = "";
+      for (var i = 0; i < bytes.length; i++) {
+        if(bytes[i] >= 0) {
+          dec = bytes[i];
+        } else {
+          dec = 256 + bytes[i];
+        }
+        hexstring = dec.toString(16);
+        // zero padding
+        if(hexstring.length == 1) {
+          hexstring = "0" + hexstring;
+        }
+        bytesAsHexString += hexstring;
+      }
+      return bytesAsHexString;
     }
-    
-};
-
-navigator.nfc = {
-
-    addMimeTypeListener: function (mimeType, callback, win, fail) {
-        document.addEventListener("ndef-mime", callback, false);    
-        PhoneGap.exec(win, fail, "NdefPlugin", "registerMimeType", [mimeType]);
-    },
-    
-    addNdefListener: function (callback, win, fail) {
-        document.addEventListener("ndef", callback, false);                
-        PhoneGap.exec(win, fail, "NdefPlugin", "registerNdef", []);
-    },
-    
-    addNdefFormatableListener: function (callback, win, fail) {
-        document.addEventListener("ndef-formatable", callback, false);
-        PhoneGap.exec(win, fail, "NdefPlugin", "registerNdefFormatable", []);
-    },
-    
-    writeTag: function (ndefMessage, win, fail) {
-      PhoneGap.exec(win, fail, "NdefPlugin", "writeTag", [ndefMessage]);
-    },
-
-    shareTag: function (ndefMessage, win, fail) {
-      PhoneGap.exec(win, fail, "NdefPlugin", "shareTag", [ndefMessage]);
-    },
-
-    unshareTag: function (win, fail) {
-      PhoneGap.exec(win, fail, "NdefPlugin", "unshareTag", []);
-    },
-
-    eraseTag: function (win, fail) {
-      PhoneGap.exec(win, fail, "NdefPlugin", "writeTag", [[]]);
-    }
-
 };
