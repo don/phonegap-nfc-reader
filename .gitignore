@@ -4,4 +4,4 @@ update.sh
 pg.sh
 *.iml
 .idea/
-
+local.properties
