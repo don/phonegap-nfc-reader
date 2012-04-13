@@ -1,6 +1,6 @@
 package com.chariotsolutions.nfc.demo.reader;
 
-import com.phonegap.*;
+import org.apache.cordova.*;
 import android.os.Bundle;
 
 public class ReaderDemo extends DroidGap {

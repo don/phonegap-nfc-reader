@@ -5,3 +5,4 @@ pg.sh
 *.iml
 .idea/
 local.properties
+out/
