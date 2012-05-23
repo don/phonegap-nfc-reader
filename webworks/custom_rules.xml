@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="imported" basedir=".">
+
+	<target name="-pre-build">
+		<copy todir="www">
+			<fileset dir="../www" />	      
+		</copy>
+	</target>
+
+	<target name="-pre-clean">
+		<delete>
+			<fileset dir="www">
+				<include name="index.html"/>
+				<include name="main.js"/>
+				<include name="master.css"/>
+				<include name="phonegap-nfc*.js"/>				
+			</fileset>
+		</delete>
+	</target>
+		
+</project>
