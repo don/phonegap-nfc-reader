@@ -9,11 +9,13 @@
         xmlns:rim="http://www.blackberry.com/ns/widgets"
 	version="1.0.0.0">
 
-  <name>Cordova Sample</name>
+  <name>NFC Reader</name>
 
   <description>
-      A sample application written with Cordova.
+      A sample NFC Reader application written with PhoneGap the PhoneGap NFC plugin
   </description>
+
+  <author href="http://github.com/don/phonegap-nfc-reader">Don Coleman</author>
 
   <license href="http://opensource.org/licenses/alphabetical">
   </license>
