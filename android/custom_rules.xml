@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="imported" basedir=".">
+
+	<target name="-pre-build">
+		<copy todir="assets/www">
+			<fileset dir="../www" />	      
+		</copy>
+	</target>
+
+	<target name="-pre-clean">
+		<delete>
+			<fileset dir="assets/www" excludes="cordova*.js" />	      
+		</delete>
+	</target>
+		
+</project>
