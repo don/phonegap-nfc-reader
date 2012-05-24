@@ -15,6 +15,12 @@ The android will open the application when a tag with a Mime Media Record of typ
 * PhoneGap 1.6.1+ (included in project)
 * phonegap-nfc plugin (included in project)
 
+### Configuration
+
+Generate a `local.properties` file using the android tool.
+
+	$ android update project -p
+
 ### Building
 
 Use ant to build the code and install on your phone
