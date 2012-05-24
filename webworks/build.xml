@@ -1,7 +1,5 @@
 ﻿<project name="Build and Deploy a Cordova BlackBerry WebWorks Project" default="help">
     
-    <import file="custom_rules.xml" optional="true" />
-
     <!-- LOAD ANT-CONTRIB LIBRARY -->
     
     <taskdef resource="net/sf/antcontrib/antcontrib.properties">
@@ -37,13 +35,13 @@
         </subant>
     </target>
     
-    <target name="build" depends="-pre-build">
+    <target name="build">
         <subant target="build">
             <fileset dir="." includes="${subant.file}"/>
         </subant>
     </target>
 
-    <target name="clean" depends="-pre-clean">
+    <target name="clean">
         <subant target="clean">
             <fileset dir="." includes="${subant.file}"/>
         </subant>
