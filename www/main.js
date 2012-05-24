@@ -1,14 +1,20 @@
-/*global Ndef */
-var tagMimeType = "text/pg";
+function init() {
+    document.addEventListener('deviceready', ready, false);
+}
 
 function template(record) {
-    var recordType = nfc.bytesToString(record.type),
-    payload;
+    var id = "",
+        tnf = tnfToString(record.tnf),
+        recordType = nfc.bytesToString(record.type),
+        payload;
+        
+    if (record.id && (record.id.length > 0)) {
+        id = "Record Id: <b>" + record.id + "<\/b><br/>";
+    }        
 
     if (recordType === "T") {
         var langCodeLength = record.payload[0],
         text = record.payload.slice((1 + langCodeLength), record.payload.length);
-
         payload = nfc.bytesToString(text);
 
     } else if (recordType === "U") {
@@ -16,11 +22,13 @@ function template(record) {
         payload = "<a href='" + url + "'>" + url + "<\/a>";
 
     } else {
+        // attempt display as a string
         payload = nfc.bytesToString(record.payload);
 
     }
 
-    return ("record type: <b>" + recordType + "<\/b>" +
+    return (id + "TNF: <b>" + tnf + "<\/b><br/>" +
+    "Record Type: <b>" + recordType + "<\/b>" +
     "<br/>" + payload
     );
 }
@@ -39,20 +47,15 @@ function clearScreen() {
     document.getElementById("tagContents").innerHTML = "";
 }
 
-function showText(text) {
-    document.getElementById("tagContents").innerHTML = text;    
-}
-
 function showInstructions() {
     document.getElementById("tagContents").innerHTML =
     "<div id='instructions'>" +
     " <p>Scan a tag to begin.<\/p>" +
-    " <p>Expecting Mime Media Tags with a type of " + tagMimeType + ".<\/p>" +
-    " <p>Use the menu button to clear the screen.<\/p>" +
+    " <p><\/p>" +    
     "<\/div>";
 }
 
-function myNfcListener(nfcEvent) {
+function onNfc(nfcEvent) {
     console.log(JSON.stringify(nfcEvent.tag));
     clearScreen();
 
@@ -61,17 +64,33 @@ function myNfcListener(nfcEvent) {
     display = document.getElementById("tagContents");
     display.appendChild(
         document.createTextNode(
-            "Scanned a NDEF tag with " + records.length + " record" + ((records.length === 1) ? "": "s")
+            "Scanned an NDEF tag with " + records.length + " record" + ((records.length === 1) ? "": "s")
         )
     );
     
+    // Display Tag Info
     var meta = document.createElement('dl');
     display.appendChild(meta);
-    showProperty(meta, "Type", tag.type);
-    showProperty(meta, "Max Size", tag.maxSize + " bytes");
-    showProperty(meta, "Is Writable", tag.isWritable);
-    showProperty(meta, "Can Make Read Only", tag.canMakeReadOnly);
+        
+    if (device.platform.match(/Android/i)) {
+        if (tag.id) {
+            showProperty(meta, "Id", nfc.bytesToHexString(tag.id));        
+        }        
+        showProperty(meta, "Tag Type", tag.type);        
+        showProperty(meta, "Max Size", tag.maxSize + " bytes");
+        showProperty(meta, "Is Writable", tag.isWritable);
+        showProperty(meta, "Can Make Read Only", tag.canMakeReadOnly);
+    } else { // assuming blackberry
+        if (tag.serialNumber) {
+            showProperty(meta, "Serial Number", nfc.bytesToHexString(tag.serialNumber));        
+        }        
+        showProperty(meta, "Tag Type", tag.tagType);        
+        showProperty(meta, "Free Space", tag.freeSpaceSize + " bytes");
+        showProperty(meta, "Is Writable", !tag.isLocked);
+        showProperty(meta, "Can Make Read Only", tag.isLockable);        
+    }
 
+    // Display Record Info
     for (var i = 0; i < records.length; i++) {
         var record = records[i],
         p = document.createElement('p');
@@ -84,41 +103,53 @@ function myNfcListener(nfcEvent) {
 var ready = function() {
 
     function win() {
-        console.log("Listening for tags with mime type " + tagMimeType);
+        console.log("Listening for NDEF Tags");
     }
 
     function fail(reason) {
         navigator.notification.alert(reason, function() {}, "There was a problem");
     }
-
-    nfc.addMimeTypeListener(tagMimeType, myNfcListener, win, fail);
     
     nfc.addNdefListener(
-//        function() {
-//            showText("This is an NDEF tag but doesn't match the mime type " + tagMimeType + ".");
-//        },
-        myNfcListener,
+        onNfc,
         function() {
             console.log("Listening for NDEF tags.");
         },
         fail
     );
     
-    nfc.addNdefFormatableListener(
-        function() {
-            navigator.notification.vibrate(100);
-            showText("This tag can be NDEF formatted.    ");
-        },
-        function() {
-            console.log("Listening for tags that can be NDEF formatted.");
-        },
-        fail
-    );
-
     showInstructions();
     
 };
 
-document.addEventListener("menubutton", showInstructions, false);
-
-document.addEventListener('deviceready', ready, false);
+function tnfToString(tnf) {
+    var value = tnf;
+    
+    switch (tnf) {
+    case ndef.TNF_EMPTY:
+        value = "Empty";
+        break; 
+    case ndef.TNF_WELL_KNOWN:
+        value = "Well Known";
+        break;     
+    case ndef.TNF_MIME_MEDIA:
+        value = "Mime Media";
+        break;     
+    case ndef.TNF_ABSOLUTE_URI:
+        value = "Absolute URI";
+        break;     
+    case ndef.TNF_EXTERNAL_TYPE:
+        value = "External";
+        break;     
+    case ndef.TNF_UNKNOWN:
+        value = "Unknown";
+        break;     
+    case ndef.TNF_UNCHANGED:
+        value = "Unchanged";
+        break;     
+    case ndef.TNF_RESERVED:
+        value = "Reserved";
+        break;     
+    }
+    return value;
+}
