@@ -118,6 +118,19 @@ var ready = function() {
         fail
     );
     
+    // android launches the app when tags with text/pg are scanned
+    // phonegap-nfc fires an ndef-mime event
+    // I am reusing the same onNfc handler
+    nfc.addMimeTypeListener(
+        'text/pg',
+        onNfc,
+        function() {
+            console.log("Listening for NDEF mime tags with type text/pg.");
+        },
+        fail
+    );
+
+    
     showInstructions();
     
 };
