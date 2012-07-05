@@ -36,8 +36,8 @@ Use ant to build the code and install on your phone
 * [Webworks SmartPhone SDK](https://bdsc.webapps.blackberry.com/html5/download/sdk)
 * [Blackberry Desktop Software](http://us.blackberry.com/apps-software/desktop/)
 * Blackberry Signing Keys - See [PhoneGap Instruction](http://docs.phonegap.com/en/1.7.0/guide_getting-started_blackberry_index.md.html#Getting%20Started%20with%20Blackberry_5b_deploy_to_device_windows_and_mac) for more details
-* PhoneGap 1.7.0 (included in project)
-* phonegap-nfc-0.4.0 plugin (included in project)
+* PhoneGap 1.9.0 (included in project)
+* phonegap-nfc-0.4.1 plugin (included in project)
 
 ### Configuration
 
