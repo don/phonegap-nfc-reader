@@ -12,7 +12,7 @@ The android will open the application when a tag with a Mime Media Record of typ
 
 * Android Phone with NFC
 * [Android SDK](http://developer.android.com/sdk/index.html)
-* PhoneGap 1.9.0 (included in project)
+* PhoneGap 2.0.0 (included in project)
 * phonegap-nfc-0.4.1 plugin (included in project)
 
 ### Configuration
