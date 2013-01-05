@@ -39,6 +39,12 @@ Use ant to build the code and install on your phone
 * PhoneGap 1.9.0 (included in project)
 * phonegap-nfc-0.4.1 plugin (included in project)
 
+### Working Version
+
+Master might not work with Blackberry 7. Try 9ac8ed2c3ef0c77df57f3e60ef9288449b45d417
+
+    git checkout 9ac8ed2c3ef0c77df57f3e60ef9288449b45d417 -b webworks
+
 ### Configuration
 
 Copy `webworks/project.properties.template` to `webworks/project.properties`.  Edit the entries for `blackberry.bbwp.dir=` and `blackberry.sigtool.password=`. 
