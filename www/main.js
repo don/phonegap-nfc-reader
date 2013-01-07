@@ -130,6 +130,15 @@ var ready = function() {
         fail
     );
 
+    // read unformatted tags, using the same listener
+    nfc.addNdefFormatableListener(
+        onNfc,
+        function() {
+            console.log("Listening for unformatted tags.");
+        },
+        fail
+    );
+
     
     showInstructions();
     
