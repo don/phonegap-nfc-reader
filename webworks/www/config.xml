@@ -65,6 +65,15 @@
     <rim:transitionEffect type="fadeOut" />
   </rim:loadingScreen>
 
+  <rim:invoke-target id="NfcReaderDemo">
+        <type>APPLICATION</type>
+        <filter>
+            <action>bb.action.OPEN</action>
+            <mime-type>application/vnd.rim.nfc.ndef</mime-type>
+            <property var="uris" value="ndef://1,ndef://2,ndef://4" />
+        </filter>
+  </rim:invoke-target>
+
   <content src="index.html" />
 
   <rim:permissions>
