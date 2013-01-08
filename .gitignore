@@ -6,3 +6,4 @@ pg.sh
 .idea/
 local.properties
 out/
+webworks/buildId.txt
