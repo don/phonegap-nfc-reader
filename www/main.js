@@ -118,27 +118,28 @@ var ready = function() {
         fail
     );
     
-    // android launches the app when tags with text/pg are scanned
-    // phonegap-nfc fires an ndef-mime event
-    // I am reusing the same onNfc handler
-    nfc.addMimeTypeListener(
-        'text/pg',
-        onNfc,
-        function() {
-            console.log("Listening for NDEF mime tags with type text/pg.");
-        },
-        fail
-    );
+    if (device.platform == "Android") {
+        // android launches the app when tags with text/pg are scanned
+        // phonegap-nfc fires an ndef-mime event
+        // reusing the same onNfc handler
+        nfc.addMimeTypeListener(
+            'text/pg',
+            onNfc,
+            function() {
+                console.log("Listening for NDEF mime tags with type text/pg.");
+            },
+            fail
+        );
 
-    // read unformatted tags, using the same listener
-    nfc.addNdefFormatableListener(
-        onNfc,
-        function() {
-            console.log("Listening for unformatted tags.");
-        },
-        fail
-    );
-
+        // read unformatted ndef tags using the same listener
+        nfc.addNdefFormatableListener(
+            onNfc,
+            function() {
+                console.log("Listening for unformatted tags.");
+            },
+            fail
+        );
+    }
     
     showInstructions();
     
