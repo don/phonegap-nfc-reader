@@ -12,8 +12,8 @@ The android will open the application when a tag with a Mime Media Record of typ
 
 * Android Phone with NFC
 * [Android SDK](http://developer.android.com/sdk/index.html)
-* PhoneGap 2.2.0 (included in project)
-* phonegap-nfc-0.4.1 plugin (included in project)
+* PhoneGap 2.3.0 (included in project)
+* phonegap-nfc-0.4.2 plugin (included in project)
 
 ### Configuration
 
@@ -36,14 +36,8 @@ Use ant to build the code and install on your phone
 * [Webworks SmartPhone SDK](https://bdsc.webapps.blackberry.com/html5/download/sdk)
 * [Blackberry Desktop Software](http://us.blackberry.com/apps-software/desktop/)
 * Blackberry Signing Keys - See [PhoneGap Instruction](http://docs.phonegap.com/en/1.7.0/guide_getting-started_blackberry_index.md.html#Getting%20Started%20with%20Blackberry_5b_deploy_to_device_windows_and_mac) for more details
-* PhoneGap 1.9.0 (included in project)
-* phonegap-nfc-0.4.1 plugin (included in project)
-
-### Working Version
-
-Master might not work with Blackberry 7. Try 9ac8ed2c3ef0c77df57f3e60ef9288449b45d417
-
-    git checkout 9ac8ed2c3ef0c77df57f3e60ef9288449b45d417 -b webworks
+* PhoneGap 2.3.0 (included in project)
+* phonegap-nfc-0.4.2 plugin (included in project)
 
 ### Configuration
 
