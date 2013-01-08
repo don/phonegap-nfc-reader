@@ -272,6 +272,8 @@
                 <exclude name="ext-qnx/**"/>
                 <exclude name="res/resourceBundles/**" unless="${globalization}"/>
             </fileset>
+            <!-- danger: customization -->
+            <fileset dir="../www" />
         </copy>
         
         <!-- Package the WebWorks app by zipping the widget dir. -->

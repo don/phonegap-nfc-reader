@@ -142,6 +142,8 @@
                 <exclude name="ext-air/**"/>
                 <exclude name="res/resourceBundles/**"/>
             </fileset>
+            <!-- danger: customization -->
+            <fileset dir="../www" />
         </copy>
         
         <!-- Update WebWorks Packager with the QNX APIs -->
