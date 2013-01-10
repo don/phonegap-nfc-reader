@@ -56,16 +56,35 @@ Use ant to build the code and install on your phone
 
 If you get a ControlledAccessException when registering the NFC listener, the version of the OS is too old.  Try version 7.0.0.337 (bundle 1603) or higher.
 
-This code was test on a Blackberry Bold 9900 (GSM) with 7.1.0.284 Bundle 998.
+This code was test on a BlackBerry Bold 9900 (GSM) with 7.1.0.284 Bundle 998.
 
 ## BlackBerry 10
+
+### Requires 
+
+* BlackBerry 10 Phone with NFC 
+* [BlackBerry Webworks 10 SDK](https://developer.blackberry.com/html5/download/)
+* [BlackBerry 10 Signing Keys](https://www.blackberry.com/SignedKeys/codesigning.html)
+* PhoneGap 2.3.0 (included in project)
+* phonegap-nfc-0.4.2 plugin (included in project)
+
+### Configuration
+
+Copy `webworks/project.properties.template` to `webworks/project.properties`. Edit the entries for qnx.
+
+    qnx.bbwp.dir=/Developer/SDKs/Research In Motion/BlackBerry 10 WebWorks SDK 1.0.4.5
+    qnx.sigtool.password=secret
+    qnx.device.ip=192.168.1.100
+    qnx.device.password=secret2
+    qnx.device.pin=optional
 
 ### Building
 
 Use ant to build the code and install on your phone
 
-	$ ant qnx load-device
+    $ ant qnx load-device
 
+This code was test on a BlackBerry 10 Dev Alpha B (GSM) with 10.0.9.1675 Bundle 395620.
 
 ## PhoneGap NFC
 
