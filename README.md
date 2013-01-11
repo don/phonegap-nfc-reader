@@ -84,6 +84,10 @@ Use ant to build the code and install on your phone
 
     $ ant qnx load-device
 
+To run the app with the Web Inspector enabled
+
+    $ ant qnx debug-device
+
 This code was test on a BlackBerry 10 Dev Alpha B (GSM) with 10.0.9.1675 Bundle 395620.
 
 ## PhoneGap NFC
