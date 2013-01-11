@@ -80,7 +80,11 @@ function onNfc(nfcEvent) {
         showProperty(meta, "Max Size", tag.maxSize + " bytes");
         showProperty(meta, "Is Writable", tag.isWritable);
         showProperty(meta, "Can Make Read Only", tag.canMakeReadOnly);
-    } else { // assuming blackberry
+    } else if (navigator.userAgent.indexOf("BB10") > -1) {
+        
+        // don't know how to get tag meta info /yet/ for BB10 
+
+    } else { // assuming blackberry 7
         if (tag.serialNumber) {
             showProperty(meta, "Serial Number", nfc.bytesToHexString(tag.serialNumber));        
         }        
