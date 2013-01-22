@@ -128,6 +128,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\NfcPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -143,12 +144,10 @@
   <ItemGroup>
     <Content Include="CordovaLib\WPCordovaClassLib.dll" />
     <Content Include="www\cordova-2.3.0.js" />
-    <Content Include="www\img\logo.png" />
-    <Content Include="www\js\index.js" />
-    <Content Include="www\css\index.css" />
-    <Content Include="www\index.html">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="www\index.html" />
+    <Content Include="www\js\phonegap-nfc.js" />
+    <Content Include="www\main.js" />
+    <Content Include="www\master.css" />
     <None Include="cordova\debug.bat" />
     <None Include="cordova\emulate.bat" />
     <None Include="Properties\AppManifest.xml">
@@ -173,9 +172,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Plugins\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Reference Include="WPCordovaClassLib, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
