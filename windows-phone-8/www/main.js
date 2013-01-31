@@ -74,12 +74,16 @@ function onNfc(nfcEvent) {
         
     if (device.platform.match(/Android/i)) {
         if (tag.id) {
-            showProperty(meta, "Id", nfc.bytesToHexString(tag.id));        
-        }        
-        showProperty(meta, "Tag Type", tag.type);        
+            showProperty(meta, "Id", nfc.bytesToHexString(tag.id));
+        }
+        showProperty(meta, "Tag Type", tag.type);
         showProperty(meta, "Max Size", tag.maxSize + " bytes");
         showProperty(meta, "Is Writable", tag.isWritable);
         showProperty(meta, "Can Make Read Only", tag.canMakeReadOnly);
+    } else if (device.platform.match(/Win.+/i)) {
+
+        // don't know how to get tag meta info /yet/ for Windows Phone  
+
     } else if (navigator.userAgent.indexOf("BB10") > -1) {
         
         // don't know how to get tag meta info /yet/ for BB10 
