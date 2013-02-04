@@ -90,6 +90,22 @@ To run the app with the Web Inspector enabled
 
 This code was test on a BlackBerry 10 Dev Alpha B (GSM) with 10.0.9.1675 Bundle 395620.
 
+## Windows Phone 8
+
+### Requires 
+
+* Windows Phone 8 with NFC 
+* [Windows Phone 8 SDK](http://dev.windowsphone.com/en-us/downloadsdk)
+* Visual Studio 2012
+* PhoneGap 2.3.0 (included in project)
+* phonegap-nfc-0.4.2 plugin (included in project)
+
+### Building
+
+Build and deploy with Visual Studio.
+
+This code was test on a Nokia Lumia 825.
+
 ## PhoneGap NFC
 
 See [phonegap-nfc](https://github.com/chariotsolutions/phonegap-nfc) for more info
