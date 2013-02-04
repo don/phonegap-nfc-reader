@@ -114,24 +114,13 @@ var ready = function() {
         navigator.notification.alert(reason, function() {}, "There was a problem");
     }
     
-    if (navigator.userAgent.indexOf("BB10") > -1) {
-        // BlackBerry 10
-        nfc.addTagDiscoveredListener(
-            onNfc,
-            function() {
-                console.log("Listening for NFC tags on BB10.");
-            },
-            fail
-        );
-    } else {
-        nfc.addNdefListener(
-            onNfc,
-            function() {
-                console.log("Listening for NDEF tags.");
-            },
-            fail
-        );
-    }
+    nfc.addNdefListener(
+        onNfc,
+        function() {
+            console.log("Listening for NDEF tags.");
+        },
+        fail
+    );
     
     if (device.platform == "Android") {
         // android launches the app when tags with text/pg are scanned
