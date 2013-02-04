@@ -106,11 +106,7 @@ function onNfc(nfcEvent) {
 
 var ready = function() {
 
-    function win() {
-        console.log("Listening for NDEF Tags");
-    }
-
-    function fail(reason) {
+    function failure(reason) {
         navigator.notification.alert(reason, function() {}, "There was a problem");
     }
     
@@ -119,30 +115,36 @@ var ready = function() {
         function() {
             console.log("Listening for NDEF tags.");
         },
-        fail
+        failure
     );
     
     if (device.platform == "Android") {
-        // android launches the app when tags with text/pg are scanned
-        // phonegap-nfc fires an ndef-mime event
-        // reusing the same onNfc handler
+
+        // Android reads non-NDEF tag. BlackBerry and Windows don't.
+        nfc.addTagDiscoveredListener(
+            function(nfcEvent) {
+                var tag = nfcEvent.tag;
+                navigator.notification.alert(nfc.bytesToHexString(tag.id), function() {}, "NFC Tag");
+            },
+            function() {
+                console.log("Listening for non-NDEF tags.");
+            },
+            failure
+        );
+
+        // Android launches the app when tags with mime type text/pg are scanned
+        // because of an intent in AndroidManifest.xml.
+        // phonegap-nfc fires an ndef-mime event (as opposed to an ndef event)
+        // the code reuses the same onNfc handler
         nfc.addMimeTypeListener(
             'text/pg',
             onNfc,
             function() {
                 console.log("Listening for NDEF mime tags with type text/pg.");
             },
-            fail
+            failure
         );
 
-        // read unformatted ndef tags using the same listener
-        nfc.addNdefFormatableListener(
-            onNfc,
-            function() {
-                console.log("Listening for unformatted tags.");
-            },
-            fail
-        );
     }
     
     showInstructions();
