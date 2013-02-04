@@ -145,10 +145,6 @@
   <ItemGroup>
     <Content Include="CordovaLib\WPCordovaClassLib.dll" />
     <Content Include="www\cordova-2.3.0.js" />
-    <Content Include="www\index.html" />
-    <Content Include="www\js\phonegap-nfc.js" />
-    <Content Include="www\main.js" />
-    <Content Include="www\master.css" />
     <None Include="cordova\debug.bat" />
     <None Include="cordova\emulate.bat" />
     <None Include="Properties\AppManifest.xml">
