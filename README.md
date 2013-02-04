@@ -6,6 +6,13 @@ The application will read NDEF tags when running.
 
 The android will open the application when a tag with a Mime Media Record of type "text/pg" is scanned
 
+## Supported Platforms
+ 
+ * [Android](#android)
+ * [BlackBerry 7](#blackberry-7)
+ * [BlackBerry 10](#blackberry-10)
+ * [Windows Phone 8](#windows-phone-8)
+
 ## Android
 
 ### Requires 
