@@ -2,11 +2,13 @@ function init() {
     document.addEventListener('deviceready', ready, false);
 }
 
+// TODO need better html make it clear this is record info
 function template(record) {
     var id = "",
         tnf = tnfToString(record.tnf),
         recordType = nfc.bytesToString(record.type),
-        payload;
+        payload,
+        html;
         
     if (record.id && (record.id.length > 0)) {
         id = "Record Id: <b>" + record.id + "<\/b><br/>";
@@ -24,13 +26,16 @@ function template(record) {
     } else {
         // attempt display as a string
         payload = nfc.bytesToString(record.payload);
-
     }
 
-    return (id + "TNF: <b>" + tnf + "<\/b><br/>" +
-    "Record Type: <b>" + recordType + "<\/b>" +
-    "<br/>" + payload
-    );
+    html = id + "TNF: <b>" + tnf + "<\/b><br/>";
+
+    if (record.tnf !== ndef.TNF_EMPTY) {
+        html +=  "Record Type: <b>" + recordType + "<\/b>" +
+                 "<br/>" + payload;
+    } 
+
+    return html;
 }
 
 function showProperty(parent, name, value) {
