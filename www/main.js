@@ -20,8 +20,14 @@ function template(record) {
         payload = nfc.bytesToString(text);
 
     } else if (recordType === "U") {
-        var url =  nfc.bytesToString(record.payload);
-        payload = "<a href='" + url + "'>" + url + "<\/a>";
+        var identifierCode = record.payload.shift(),
+            uri =  nfc.bytesToString(record.payload);
+
+        if (identifierCode !== 0) {
+            // TODO decode based on URI Record Type Definition
+            console.log("WARNING: uri needs to be decoded");
+        }
+        payload = "<a href='" + uri + "'>" + uri + "<\/a>";
 
     } else {
         // attempt display as a string
@@ -61,6 +67,25 @@ function showInstructions() {
 }
 
 function onNfc(nfcEvent) {
+    console.log(JSON.stringify(nfcEvent.tag));
+    clearScreen();
+
+    var tag = nfcEvent.tag,
+        display = document.getElementById("tagContents"),
+        meta = document.createElement('dl');
+    
+    display.appendChild(document.createTextNode("Scanned a non-NDEF NFC tag"));
+    display.appendChild(meta);
+
+    if (tag.id) {
+        showProperty(meta, "Id", nfc.bytesToHexString(tag.id));
+    }
+
+    navigator.notification.vibrate(100);
+
+}
+
+function onNdef(nfcEvent) {
     console.log(JSON.stringify(nfcEvent.tag));
     clearScreen();
 
@@ -121,7 +146,7 @@ var ready = function() {
     }
     
     nfc.addNdefListener(
-        onNfc,
+        onNdef,
         function() {
             console.log("Listening for NDEF tags.");
         },
@@ -132,10 +157,7 @@ var ready = function() {
 
         // Android reads non-NDEF tag. BlackBerry and Windows don't.
         nfc.addTagDiscoveredListener(
-            function(nfcEvent) {
-                var tag = nfcEvent.tag;
-                navigator.notification.alert(nfc.bytesToHexString(tag.id), function() {}, "NFC Tag");
-            },
+            onNfc,
             function() {
                 console.log("Listening for non-NDEF tags.");
             },
@@ -148,7 +170,7 @@ var ready = function() {
         // the code reuses the same onNfc handler
         nfc.addMimeTypeListener(
             'text/pg',
-            onNfc,
+            onNdef,
             function() {
                 console.log("Listening for NDEF mime tags with type text/pg.");
             },
