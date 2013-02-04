@@ -193,4 +193,7 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>copy /Y $(ProjectDir)\..\www\*.* $(ProjectDir)\www</PreBuildEvent>
+  </PropertyGroup>
 </Project>
