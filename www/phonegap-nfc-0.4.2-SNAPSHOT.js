@@ -135,7 +135,8 @@ if (navigator.userAgent.indexOf("BB10") > -1) {
                 return { "status" : cordova.callbackStatus.OK, "message" : "" };
             },
             registerTag: function (args, win, fail) {
-                return { "status" : cordova.callbackStatus.ERROR, "message" : "addTagDiscoveredListener is no longer supported. Use addNdefListener." }
+                return { "status" : cordova.callbackStatus.ERROR, 
+                    "message" : "addTagDiscoveredListener is no longer supported. Use addNdefListener." };
             },
             registerNdef: function (args, win, fail) {
                 // do nothing 
@@ -156,7 +157,7 @@ if (navigator.userAgent.indexOf("BB10") > -1) {
         }
     });
 }
-/*global cordova, nfc */
+/*global cordova, console */
 /*jslint sloppy: false, browser: true */
 "use strict";
 
@@ -252,8 +253,8 @@ var ndef = {
      * @id byte[] (optional)
      */
     uriRecord: function (text, id) {
-        if (!id) { id = []; }   
-        return ndef.record(ndef.TNF_ABSOLUTE_URI, ndef.RTD_URI, id, nfc.stringToBytes(text));
+        if (!id) { id = []; }
+        return ndef.record(ndef.TNF_ABSOLUTE_URI, nfc.stringToBytes(text), id, []);
     },
 
     /**
@@ -380,4 +381,17 @@ var nfc = {
         }
         return bytesAsHexString;
     }
+    
 };
+
+// added since WP8 must call a named function
+// TODO consider switching NFC events from JS events to using the PG callbacks
+function fireNfcTagEvent(eventType, tagAsJson) {
+    setTimeout(function () {
+        var e = document.createEvent('Events');
+        e.initEvent(eventType, true, false);
+        e.tag = JSON.parse(tagAsJson);
+        console.log(e.tag);
+        document.dispatchEvent(e);
+    }, 10);
+}
