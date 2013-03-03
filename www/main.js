@@ -1,63 +1,14 @@
+// TODO wrap in app object
+
 function init() {
     document.addEventListener('deviceready', ready, false);
-}
-
-// TODO need better html make it clear this is record info
-function template(record) {
-    var id = "",
-        tnf = tnfToString(record.tnf),
-        recordType = nfc.bytesToString(record.type),
-        payload,
-        html;
-        
-    if (record.id && (record.id.length > 0)) {
-        id = "Record Id: <b>" + record.id + "<\/b><br/>";
-    }        
-
-    if (recordType === "T") {
-        var langCodeLength = record.payload[0],
-        text = record.payload.slice((1 + langCodeLength), record.payload.length);
-        payload = nfc.bytesToString(text);
-
-    } else if (recordType === "U") {
-        var identifierCode = record.payload.shift(),
-            uri =  nfc.bytesToString(record.payload);
-
-        if (identifierCode !== 0) {
-            // TODO decode based on URI Record Type Definition
-            console.log("WARNING: uri needs to be decoded");
-        }
-        payload = "<a href='" + uri + "'>" + uri + "<\/a>";
-
-    } else {
-        // attempt display as a string
-        payload = nfc.bytesToString(record.payload);
-    }
-
-    html = id + "TNF: <b>" + tnf + "<\/b><br/>";
-
-    if (record.tnf !== ndef.TNF_EMPTY) {
-        html +=  "Record Type: <b>" + recordType + "<\/b>" +
-                 "<br/>" + payload;
-    } 
-
-    return html;
-}
-
-function showProperty(parent, name, value) {
-    var dt, dd;
-    dt = document.createElement("dt");
-    dt.innerHTML = name;
-    dd = document.createElement("dd");
-    dd.innerHTML = value;
-    parent.appendChild(dt);
-    parent.appendChild(dd);
 }
 
 function clearScreen() {
     document.getElementById("tagContents").innerHTML = "";
 }
 
+// TODO move markup to index.html
 function showInstructions() {
     document.getElementById("tagContents").innerHTML =
     "<div id='instructions'>" +
@@ -71,71 +22,33 @@ function onNfc(nfcEvent) {
     clearScreen();
 
     var tag = nfcEvent.tag,
-        display = document.getElementById("tagContents"),
-        meta = document.createElement('dl');
-    
-    display.appendChild(document.createTextNode("Scanned a non-NDEF NFC tag"));
-    display.appendChild(meta);
+        source = document.getElementById('non-ndef-template').innerHTML,
+        template = Handlebars.compile(source);
 
-    if (tag.id) {
-        showProperty(meta, "Id", nfc.bytesToHexString(tag.id));
-    }
+    tagContents.innerHTML = template(tag);
 
     navigator.notification.vibrate(100);
-
 }
 
 function onNdef(nfcEvent) {
     console.log(JSON.stringify(nfcEvent.tag));
     clearScreen();
 
-    var tag = nfcEvent.tag;    
-    var records = tag.ndefMessage || [],
-    display = document.getElementById("tagContents");
-    display.appendChild(
-        document.createTextNode(
-            "Scanned an NDEF tag with " + records.length + " record" + ((records.length === 1) ? "": "s")
-        )
-    );
-    
-    // Display Tag Info
-    var meta = document.createElement('dl');
-    display.appendChild(meta);
-        
-    if (device.platform.match(/Android/i)) {
-        if (tag.id) {
-            showProperty(meta, "Id", nfc.bytesToHexString(tag.id));
-        }
-        showProperty(meta, "Tag Type", tag.type);
-        showProperty(meta, "Max Size", tag.maxSize + " bytes");
-        showProperty(meta, "Is Writable", tag.isWritable);
-        showProperty(meta, "Can Make Read Only", tag.canMakeReadOnly);
-    
-    } else if (device.platform.match(/Win.+/i)) {
+    var tag = nfcEvent.tag;
 
-        // don't know how to get tag meta info /yet/ for Windows Phone
-
-    } else if (navigator.userAgent.indexOf("BB10") > -1) {
-        
-        // don't know how to get tag meta info /yet/ for BB10
-
-    } else { // assuming blackberry 7
-        if (tag.serialNumber) {
-            showProperty(meta, "Serial Number", nfc.bytesToHexString(tag.serialNumber));        
-        }        
-        showProperty(meta, "Tag Type", tag.tagType);        
-        showProperty(meta, "Free Space", tag.freeSpaceSize + " bytes");
-        showProperty(meta, "Is Writable", !tag.isLocked);
-        showProperty(meta, "Can Make Read Only", tag.isLockable);        
+    // BB7 has different names, copy to Android names
+    if (tag.serialNumber) {
+        tag.id = tag.serialNumber;
+        tag.isWritable = !tag.isLocked;
+        tag.canMakeReadOnly = tag.isLockable;
     }
 
-    // Display Record Info
-    for (var i = 0; i < records.length; i++) {
-        var record = records[i],
-        p = document.createElement('p');
-        p.innerHTML = template(record);
-        display.appendChild(p);
-    }
+    // TODO compile template outside of listener
+    var source = document.getElementById('tag-template').innerHTML;
+    var template = Handlebars.compile(source);
+    
+    tagContents.innerHTML = template(tag);
+
     navigator.notification.vibrate(100);
 }
 
@@ -178,11 +91,81 @@ var ready = function() {
         );
 
     }
-    
+
+    Handlebars.registerHelper('bytesToString', function(byteArray) { 
+        return nfc.bytesToString(byteArray);  // TODO nfc util
+    });
+
+    Handlebars.registerHelper('bytesToHexString', function(byteArray) {
+        return nfc.bytesToHexString(byteArray);  // TODO nfc util
+    });
+
+    // useful for boolean
+    Handlebars.registerHelper('toString', function(value) {  
+        return String(value);  
+    });
+
+    Handlebars.registerHelper('tnfToString', function(tnf) {  
+        return tnfToString(tnf);  
+    });
+
+    Handlebars.registerHelper('decodePayload', function(record) {
+
+        var recordType = nfc.bytesToString(record.type),
+            payload;
+
+        // TODO extract this out to decoders that live in NFC code
+        // TODO add a method to ndefRecord so the helper 
+        // TODO doesn't need to do this
+
+        if (recordType === "T") {
+            var langCodeLength = record.payload[0],
+            text = record.payload.slice((1 + langCodeLength), record.payload.length);
+            payload = nfc.bytesToString(text);
+
+        } else if (recordType === "U") {
+            var identifierCode = record.payload.shift(),
+            uri =  nfc.bytesToString(record.payload);
+
+            if (identifierCode !== 0) {
+                // TODO decode based on URI Record Type Definition
+                console.log("WARNING: uri needs to be decoded");
+            }
+            //payload = "<a href='" + uri + "'>" + uri + "<\/a>";
+            payload = uri;
+
+        } else {
+
+            // kludge assume we can treat as String
+            payload = nfc.bytesToString(record.payload); 
+        }
+
+        return payload;
+    });
+
+
     showInstructions();
     
 };
 
+
+// TODO - process the message before sending to template??
+function convertData() {
+
+    // tag
+    // add id as hex string (keep binary version)
+    // convert boolean to string (keep boolean?)
+
+    // for each record in the ndef message
+    // record.tnfString = tnfToString(record.tnf);
+    // record.typeString = nfc.bytesToString(record.type);
+    // record.payloadString = nfc.decodePayload(record);
+    //     TODO can people add their own decode?
+    // record.idString = nfc.bytesToString(record.id);
+}
+
+
+// TODO move to phonegap-nfc util
 function tnfToString(tnf) {
     var value = tnf;
     
