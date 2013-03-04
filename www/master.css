@@ -10,14 +10,15 @@ body {
   padding-left: 20px;
 }
 
-#instructions {
+.instructions {
   text-align: center;
   padding: 40px 10px 20px 10px;
+  opacity: 1;
+  -webkit-transition: opacity 1s ease-in;
 }
 
-#instructions p:last-child {
-  padding-top: 60px;
-  font-size: .8em;
+.hidden {
+  opacity: 0;
 }
 
 h1 {

@@ -7,9 +7,13 @@
 <link rel="stylesheet" href="master.css" type="text/css" media="screen" title="no title" charset="utf-8">
 </head>
 
-<body onload="init()">
+<body>
     <h1>PhoneGap NFC Reader</h1>
-    <div id="tagContents"></div>
+    <div id="tagContents">
+        <div class="hidden">
+            Scan a tag to being.
+        </div>
+    </div>
 
     <script id="non-ndef-template" type="text/x-handlebars-template">
         <p>Scanned a non-NDEF NFC tag</p>
@@ -27,11 +31,11 @@
         }}
         <dl>
             {{#if id}}
-            <dt>Tag Id</dt> 			<dd>{{ bytesToHexString id }}</dd>
+            <dt>Tag Id</dt>             <dd>{{ bytesToHexString id }}</dd>
             {{/if}}
             
             {{#if type}}
-            <dt>Tag Type</dt> 			<dd>{{ type }}</dd>
+            <dt>Tag Type</dt>           <dd>{{ type }}</dd>
             {{/if}}
 
             {{#if maxSize }}
@@ -39,12 +43,12 @@
             {{/if}}            
 
             {{#if freeSpaceSize }}
-            <dt>Free Space</dt> 		<dd>{{ freeSpaceSize }} bytes</dd>
+            <dt>Free Space</dt>         <dd>{{ freeSpaceSize }} bytes</dd>
             {{/if}}
 
             {{#if id}}
-            <dt>Is Writable</dt>		<dd>{{ toString isWritable }}</dd>
-            <dt>Can Make Read Only</dt>	<dd>{{ toString canMakeReadOnly }}</dd>
+            <dt>Is Writable</dt>        <dd>{{ toString isWritable }}</dd>
+            <dt>Can Make Read Only</dt> <dd>{{ toString canMakeReadOnly }}</dd>
             {{/if}}            
         </dl>
 
@@ -67,5 +71,9 @@
     <script type="text/javascript" charset="utf-8" src="js/handlebars.js"></script>
     <script type="text/javascript" charset="utf-8" src="phonegap-nfc-0.4.2-SNAPSHOT.js"></script>
     <script type="text/javascript" charset="utf-8" src="main.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+    </script>
 </body>
 </html>
