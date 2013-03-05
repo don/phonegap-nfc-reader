@@ -32,4 +32,5 @@
   <plugin name="Battery"        value="org.apache.cordova.battery.Battery"/>
   <plugin name="Media"          value="org.apache.cordova.media.Media"/>
   <plugin name="Globalization"  value="org.apache.cordova.globalization.Globalization"/>
+  <plugin name="NfcPlugin" value="com.chariotsolutions.nfc.plugin.NfcPlugin"/>
 </plugins>
