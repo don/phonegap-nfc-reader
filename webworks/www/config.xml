@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
   Widget Configuration Reference:
     http://docs.blackberry.com/en/developers/deliverables/15274/
@@ -7,16 +6,16 @@
 
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:rim="http://www.blackberry.com/ns/widgets"
-	version="1.0.0.0" id="com.megster.phonegapnfc.readerdemo">
+	version="1.0.0.0" id="com.chariotsolutions.nfc.demo.reader">
 
-  <name>NFC Reader</name>
-
-  <description>
-      A sample NFC Reader application written with PhoneGap the PhoneGap NFC plugin
-  </description>
+  <name>NFC Reader Demo</name>
 
   <author href="http://github.com/don/phonegap-nfc-reader">Don Coleman</author>
 
+  <description>
+       A sample NFC Reader application written with PhoneGap the PhoneGap NFC plugin.
+  </description>
+    
   <license href="http://opensource.org/licenses/alphabetical">
   </license>
 
@@ -48,7 +47,7 @@
   <feature id="blackberry.invoked" />
   <feature id="blackberry.push" />
   <feature id="blackberry.media.microphone" required="true" version="1.0.0.0"/>
-
+  
   <!-- Cordova API -->
   <access subdomains="true" uri="file:///store/home" />
   <access subdomains="true" uri="file:///SDCard" />
@@ -66,25 +65,25 @@
   </rim:loadingScreen>
 
   <rim:invoke-target id="com.megster.phonegapnfc.readerdemo.target">
-        <type>APPLICATION</type>
-        <filter>
-            <action>bb.action.OPEN</action>
-            <mime-type>application/vnd.rim.nfc.ndef</mime-type>
-            <property var="uris" value="ndef://0,ndef://1,ndef://2,ndef://3,ndef://4" />
-        </filter>
+    <type>APPLICATION</type>
+    <filter>
+      <action>bb.action.OPEN</action>
+      <mime-type>application/vnd.rim.nfc.ndef</mime-type>
+      <property var="uris" value="ndef://0,ndef://1,ndef://2,ndef://3,ndef://4" />
+    </filter>
   </rim:invoke-target>
 
   <content src="index.html" />
 
   <rim:permissions>
-    <!--      
+    <!--
     <rim:permit>use_camera</rim:permit>
     <rim:permit>read_device_identifying_information</rim:permit>
     <rim:permit>access_shared</rim:permit>
     <rim:permit>read_geolocation</rim:permit>
     <rim:permit>record_audio</rim:permit> 
     <rim:permit>access_pimdomain_contacts</rim:permit> 
-    -->    
+    -->
   </rim:permissions>
 
 </widget>
