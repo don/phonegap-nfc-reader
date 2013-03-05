@@ -56,7 +56,8 @@ if (navigator.userAgent.indexOf("BB10") > -1) {
                 hasIdLength = (flags & 8) !== 0, // identification length
                 offset = 1,
                 typeLength = encoded[offset++],
-                idLength = payloadLength = 0;
+                idLength = 0,
+                payloadLength = 0;
 
             if (isShortRecord) {
                 payloadLength = encoded[offset++];
@@ -149,15 +150,15 @@ if (navigator.userAgent.indexOf("BB10") > -1) {
                     byteArray = ndef.encodeMessage(message),
                     data = "";
                 
-    			for (var i=0; i< byteArray.length; ++i) {
-    				data += String.fromCharCode(byteArray[i]);
-    			}
+                for (var i=0; i< byteArray.length; ++i) {
+                    data += String.fromCharCode(byteArray[i]);
+                }
 
-    			var query = {
-    					"action": "bb.action.SHARE",
-    					"type": "application/vnd.rim.nfc.ndef",
-    					"data": data
-    			};
+                var query = {
+                        "action": "bb.action.SHARE",
+                        "type": "application/vnd.rim.nfc.ndef",
+                        "data": data
+                };
 
                 // http://developer.blackberry.com/html5/api/blackberry.invoke.html#.invoke
                 blackberry.invoke.invoke(query, win, fail);
