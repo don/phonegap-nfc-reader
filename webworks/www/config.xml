@@ -64,7 +64,7 @@
     <rim:transitionEffect type="fadeOut" />
   </rim:loadingScreen>
 
-  <rim:invoke-target id="com.megster.phonegapnfc.readerdemo.target">
+  <rim:invoke-target id="com.chariotsolutions.nfc.demo.reader.target">
     <type>APPLICATION</type>
     <filter>
       <action>bb.action.OPEN</action>
