@@ -23,7 +23,7 @@
     </script>
 
     <script id="tag-template" type="text/x-handlebars-template">
-        <p>Scanned an NDEF tag with {{ ndefMessage.length }} records</p>
+        <p>Scanned an NDEF tag with {{ ndefMessage.length }} {{ pluralize ndefMessage.length 'record' 'records' }}</p>
 
         {{!
             BB10 and WP8 will not have any meta info

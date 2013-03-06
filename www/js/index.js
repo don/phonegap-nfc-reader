@@ -119,6 +119,11 @@ var app = {
 
         Handlebars.registerHelper('decodePayload', function(record) {
             return decodePayload(record);
+        });
+        
+        Handlebars.registerHelper('pluralize', function(number, single, plural) {
+          if (number === 1) { return single; }
+          else { return plural; }
         });     
     }
 };
