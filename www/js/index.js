@@ -50,6 +50,8 @@ var app = {
     },
     onNfc: function (nfcEvent) {
         
+        var tag = nfcEvent.tag;
+        
         console.log(JSON.stringify(nfcEvent.tag));
         app.clearScreen();
 
