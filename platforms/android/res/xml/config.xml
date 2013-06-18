@@ -67,12 +67,12 @@
     </feature>
     <plugins>
     </plugins>
+    <feature name="NfcPlugin">
+        <param name="android-package" value="com.chariotsolutions.nfc.plugin.NfcPlugin" />
+    </feature>
     <access origin="*" />
     <preference name="useBrowserHistory" value="true" />
     <preference name="exit-on-suspend" value="false" />
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="true" />
-    <feature name="NfcPlugin">
-        <param name="android-package" value="com.chariotsolutions.nfc.plugin.NfcPlugin" />
-    </feature>
 </widget>
