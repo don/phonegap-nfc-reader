@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="width=320, user-scalable=no" />
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>NFC Reader Demo</title>
+<link rel="stylesheet" href="css/index.css" type="text/css" media="screen" title="no title" charset="utf-8">
+</head>
+
+<body>
+    <h1>PhoneGap NFC Reader</h1>
+    <div id="tagContents">
+        <div class="hidden">
+            Scan a tag to being.
+        </div>
+    </div>
+
+    <script id="non-ndef-template" type="text/x-handlebars-template">
+        <p>Scanned a non-NDEF NFC tag</p>
+        <p>
+            Tag Id: <strong>{{ bytesToHexString id }}</strong>
+        </p>
+    </script>
+
+    <script id="tag-template" type="text/x-handlebars-template">
+        <p>Scanned an NDEF tag with {{ ndefMessage.length }} {{ pluralize ndefMessage.length 'record' 'records' }}</p>
+
+        {{!
+            BB10 and WP8 will not have any meta info
+            Android P2P will not have id, but will have type
+        }}
+        <dl>
+            {{#if id}}
+            <dt>Tag Id</dt>             <dd>{{ bytesToHexString id }}</dd>
+            {{/if}}
+            
+            {{#if type}}
+            <dt>Tag Type</dt>           <dd>{{ type }}</dd>
+            {{/if}}
+
+            {{#if maxSize }}
+            <dt>Max Size</dt>           <dd>{{ maxSize }} bytes</dd>
+            {{/if}}            
+
+            {{#if freeSpaceSize }}
+            <dt>Free Space</dt>         <dd>{{ freeSpaceSize }} bytes</dd>
+            {{/if}}
+
+            {{#if id}}
+            <dt>Is Writable</dt>        <dd>{{ toString isWritable }}</dd>
+            <dt>Can Make Read Only</dt> <dd>{{ toString canMakeReadOnly }}</dd>
+            {{/if}}            
+        </dl>
+
+        {{#each ndefMessage}}  {{! does not read well, iterating on records non messages}}
+        <div class='record'>
+            Record {{ @index }}:<br/>
+            TNF: <b>{{ tnfToString tnf }}</b><br/>        
+            {{#if tnf}}
+                Record Type: <b>{{ bytesToString type }}</b><br/>
+                Payload: <b>{{ decodePayload this }}</b><br/>
+                {{#if id}}
+                    Record Id: <b>{{ bytesToString id }}</b><br/>            
+                {{/if}}
+            {{/if}}
+        </div>
+        {{/each}}
+    </script>
+    
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/handlebars.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+</body>
+</html>

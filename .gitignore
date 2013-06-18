@@ -1,9 +1,4 @@
-bin/
-gen/
-update.sh
-pg.sh
-*.iml
-.idea/
-local.properties
-out/
-webworks/buildId.txt
+platforms/android/assets/www
+platforms/android/src/com/chariotsolutions
+platforms/android/bin
+platforms/android/gen
