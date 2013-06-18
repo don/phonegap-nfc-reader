@@ -9,111 +9,29 @@ The android will open the application when a tag with a Mime Media Record of typ
 ## Supported Platforms
  
  * [Android](#android)
- * [BlackBerry 7](#blackberry-7)
- * [BlackBerry 10](#blackberry-10)
- * [Windows Phone 8](#windows-phone-8)
 
+ See master branch for additional platforms
+ 
 ## Android
 
 ### Requires 
 
 * Android Phone with NFC
 * [Android SDK](http://developer.android.com/sdk/index.html)
-* PhoneGap 2.3.0 (included in project)
-* phonegap-nfc-0.4.2 plugin (included in project)
+* Cordova CLI
+* PhoneGap 2.8.0 (included in project)
+* phonegap-nfc-0.4.4 plugin (included in project)
 
-### Configuration
+### Cordova CLI >= 2.8.19
 
-Generate a `local.properties` file using the android tool.
+Requires [nodejs](http://nodejs.org).
 
-	$ android update project -p
+    $ npm install cordova -g
 
-### Building
+### Running
 
-Use ant to build the code and install on your phone
-
-	$ ant debug install
-
-## BlackBerry 7
-
-### Requires 
-
-* BlackBerry Phone with NFC 
-* BlackBerry OS 7 (7.1 recommended)
-* [Webworks SmartPhone SDK](https://bdsc.webapps.blackberry.com/html5/download/sdk)
-* [BlackBerry Desktop Software](http://us.blackberry.com/apps-software/desktop/)
-* BlackBerry Signing Keys - See [PhoneGap Instruction](http://docs.phonegap.com/en/1.7.0/guide_getting-started_blackberry_index.md.html#Getting%20Started%20with%20Blackberry_5b_deploy_to_device_windows_and_mac) for more details
-* PhoneGap 2.3.0 (included in project)
-* phonegap-nfc-0.4.2 plugin (included in project)
-
-### Configuration
-
-Copy `webworks/project.properties.template` to `webworks/project.properties`.  Edit the entries for `blackberry.bbwp.dir=` and `blackberry.sigtool.password=`. 
-
-	blackberry.bbwp.dir=/Developer/SDKs/Research\ In\ Motion/BlackBerry\ WebWorks\ SDK\ 2.3.1.5
-	blackberry.sigtool.password=secret
-
-### Building
-
-Use ant to build the code and install on your phone
-
-	$ ant blackberry load-device
-	
-### Known Issues
-
-If you get a ControlledAccessException when registering the NFC listener, the version of the OS is too old.  Try version 7.0.0.337 (bundle 1603) or higher.
-
-This code was test on a BlackBerry Bold 9900 (GSM) with 7.1.0.284 Bundle 998.
-
-## BlackBerry 10
-
-### Requires 
-
-* BlackBerry 10 Phone with NFC 
-* [BlackBerry Webworks 10 SDK](https://developer.blackberry.com/html5/download/)
-* [BlackBerry 10 Signing Keys](https://www.blackberry.com/SignedKeys/codesigning.html)
-* PhoneGap 2.3.0 (included in project)
-* phonegap-nfc-0.4.2 plugin (included in project)
-
-### Configuration
-
-Copy `webworks/project.properties.template` to `webworks/project.properties`. Edit the entries for qnx.
-
-    qnx.bbwp.dir=/Developer/SDKs/Research In Motion/BlackBerry 10 WebWorks SDK 1.0.4.5
-    qnx.sigtool.password=secret
-    qnx.device.ip=192.168.1.100
-    qnx.device.password=secret2
-    qnx.device.pin=optional
-
-### Building
-
-Use ant to build the code and install on your phone
-
-    $ ant qnx load-device
-
-To run the app with the Web Inspector enabled
-
-    $ ant qnx debug-device
-
-This code was test on a BlackBerry 10 Dev Alpha B (GSM) with 10.0.9.1675 Bundle 395620.
-
-## Windows Phone 8
-
-### Requires 
-
-* Windows Phone 8 with NFC 
-* [Windows Phone 8 SDK](http://dev.windowsphone.com/en-us/downloadsdk)
-* Visual Studio 2012
-* PhoneGap 2.3.0 (included in project)
-* phonegap-nfc-0.4.2 plugin (included in project)
-
-### Building
-
-Build and deploy with Visual Studio.
-
-This code was test on a Nokia Lumia 825.
+	$ cordova run
 
 ## PhoneGap NFC
 
 See [phonegap-nfc](https://github.com/chariotsolutions/phonegap-nfc) for more info
-
