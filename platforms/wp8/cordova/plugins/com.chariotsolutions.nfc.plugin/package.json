@@ -1,0 +1,13 @@
+{
+    "version": "0.4.6",
+    "name": "com.chariotsolutions.nfc.plugin",
+    "cordova_name": "NFC",
+    "description": "Near Field Communication (NFC) Plugin. Read and write NDEF messages to tags or share NDEF messages with peers.",
+    "license": "MIT",
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=2.8.0"
+        }
+    ]
+}

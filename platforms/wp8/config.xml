@@ -11,4 +11,13 @@
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="true" />
     <content src="index.html" />
+    <feature name="NfcPlugin">
+        <param name="wp-package" value="NfcPlugin" />
+    </feature>
+    <feature name="Device">
+        <param name="wp-package" value="Device" />
+    </feature>
+    <feature name="Vibration">
+        <param name="wp-package" value="Vibration" />
+    </feature>
 </widget>

@@ -346,6 +346,27 @@
         <Content Include="www\res\screen\windows-phone\screen-portrait.jpg" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Plugins\com.chariotsolutions.nfc.plugin\Ndef.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\com.chariotsolutions.nfc.plugin\NfcPlugin.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\org.apache.cordova.device\Device.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Plugins\org.apache.cordova.vibration\Vibration.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\com.chariotsolutions.nfc.plugin\www\phonegap-nfc.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.device\www\device.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.vibration\www\vibration.js" />
+    </ItemGroup>
+    <ItemGroup>
         <Content Include="www\cordova_plugins.js" />
     </ItemGroup>
 </Project>
