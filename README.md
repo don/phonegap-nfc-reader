@@ -4,13 +4,26 @@ Simple web app that reads an NDEF Message from a NFC tag.
 
 The application will read NDEF tags when running.
 
-The android will open the application when a tag with a Mime Media Record of type "text/pg" is scanned
+The android version will open the application when a tag with a Mime Media Record of type "text/pg" is scanned
 
 ## Supported Platforms
  
  * [Android](#android)
+ * [Windows Phone](#windowsphone8)
 
- See master branch for additional platforms
+See the BlackBerry7 tag for the last version to support BlackBerry 7. The code tagged BlackBerry7 *should* also support BlackBerry 10.
+
+### Cordova CLI >= 3.1
+
+Requires [nodejs](http://nodejs.org).
+
+    $ npm install cordova -g
+ 
+## Plugins 
+
+* [Device](http://docs.phonegap.com/en/3.1.0/cordova_device_device.md.html#Device) plugin (included in project)
+* [Notification](http://docs.phonegap.com/en/3.1.0/cordova_notification_notification.md.html#Notification) vibration plugin (included in project)
+* [phonegap-nfc](https://github.com/chariotsolutions/phonegap-nfc) plugin (included in project)
  
 ## Android
 
@@ -19,19 +32,30 @@ The android will open the application when a tag with a Mime Media Record of typ
 * Android Phone with NFC
 * [Android SDK](http://developer.android.com/sdk/index.html)
 * Cordova CLI
-* PhoneGap 3.0 (included in project)
-* [Device](http://docs.phonegap.com/en/3.0.0/cordova_device_device.md.html#Device) plugin (included in project)
-* [phonegap-nfc](https://github.com/chariotsolutions/phonegap-nfc) plugin (included in project)
-
-### Cordova CLI >= 3.0
-
-Requires [nodejs](http://nodejs.org).
-
-    $ npm install cordova -g
 
 ### Running
 
-	$ cordova run
+	$ cordova run android
+
+## Windows Phone 8
+
+### Requires 
+
+* Windows Phone 8 with NFC 
+* [Windows Phone 8 SDK](http://dev.windowsphone.com/en-us/downloadsdk)
+* Visual Studio 2012
+
+### Building
+
+Build and deploy with Visual Studio.
+
+This code was test on a Nokia Lumia 825.	
+
+### WP8 Problems
+
+Cordova CLI 3.1.0-0.2.0 is broken (or misconfigured) and won't deploy the plugins, use Visual Studio to deploy.
+
+Windows Phone NFC support is sketchy. Windows wants to grab and handle all NFC tags before the app does. This means that you'll get prompted by Windows to open URIs or get error messages for tags that Windows can't handle like Mime Media Tags. Dismiss the errors and you should be able to see the data in phonegap-nfc-reader. It's not ideal. Microsoft says they know about this. Maybe it will be fixed in Windows Phone 8.1?
 
 ## PhoneGap NFC
 
