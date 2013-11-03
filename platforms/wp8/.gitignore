@@ -10,3 +10,5 @@ tmp/
   
 *.user
 *.suo
+
+www/
