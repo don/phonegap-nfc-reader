@@ -4,25 +4,24 @@
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
+    <access origin="*" />
+    <preference name="loglevel" value="DEBUG" />
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
     </feature>
     <feature name="NfcPlugin">
         <param name="android-package" value="com.chariotsolutions.nfc.plugin.NfcPlugin" />
     </feature>
-    <feature name="Vibration">
-        <param name="android-package" value="org.apache.cordova.vibration.Vibration" />
-    </feature>
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
     </feature>
-    <access origin="*" />
-    <preference name="useBrowserHistory" value="true" />
-    <preference name="exit-on-suspend" value="false" />
-    <preference name="fullscreen" value="true" />
-    <preference name="webviewbounce" value="true" />
+    <feature name="Vibration">
+        <param name="android-package" value="org.apache.cordova.vibration.Vibration" />
+    </feature>
     <author email="don.coleman@gmail.com" href="http://github.com/don">
         Don Coleman
     </author>
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="true" />
     <content src="index.html" />
 </widget>
