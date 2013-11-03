@@ -3,16 +3,31 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="org.apache.cordova.core.device"
-    version="0.2.0">
+    id="org.apache.cordova.device"
+    version="0.2.4">
     <name>Device</name>
     <description>Cordova Device Plugin</description>
     <license>Apache 2.0</license>
     <keywords>cordova,device</keywords>
+    <repo>https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git</repo>
+    <issue>https://issues.apache.org/jira/browse/CB/component/12320648</issue>
 
     <js-module src="www/device.js" name="device">
         <clobbers target="device" />
     </js-module>
+
+    <!-- firefoxos -->
+    <platform name="firefoxos">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Device">
+                <param name="firefoxos-package" value="Device" />
+            </feature>
+        </config-file>                                         
+        
+        <js-module src="src/firefoxos/DeviceProxy.js" name="DeviceProxy">
+            <runs />
+        </js-module>
+    </platform>
 
     <!-- android -->
     <platform name="android">
@@ -42,10 +57,6 @@
         <source-file src="src/blackberry10/index.js" target-dir="Device" />
         <config-file target="www/config.xml" parent="/widget">
             <feature name="Device" value="Device"/>
-        </config-file>
-        <config-file target="www/config.xml" parent="/widget">
-            <rim:permissions>
-            </rim:permissions>
         </config-file>
         <config-file target="www/config.xml" parent="/widget/rim:permissions">
             <rim:permit>read_device_identifying_information</rim:permit>
