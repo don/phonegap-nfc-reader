@@ -9,13 +9,13 @@ The android version will open the application when a tag with a Mime Media Recor
 ## Supported Platforms
  
  * [Android](#android)
- * [Windows Phone](#windowsphone8)
+ * [Windows Phone](#windows-phone-8)
 
 See the BlackBerry7 tag for the last version to support BlackBerry 7. The code tagged BlackBerry7 *should* also support BlackBerry 10.
 
-### Cordova CLI >= 3.1
+### Cordova CLI
 
-Requires [nodejs](http://nodejs.org).
+Cordova 3.1 or greater is required. User npm to install Cordova. npm is part of [nodejs](http://nodejs.org).
 
     $ npm install cordova -g
  
