@@ -199,10 +199,34 @@
         </PostBuildEvent>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Include="Plugins\org.apache.cordova.device\Device.cs" />
+        <Content Include="www\config.xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Plugins\org.apache.cordova.vibration\Vibration.cs" />
+        <Content Include="www\cordova.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\css\index.css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\index.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\handlebars.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\js\index.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\res\icon\blackberry10\icon-80.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\res\screen\blackberry10\splash-1280x768.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\res\screen\blackberry10\splash-720x720.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\res\screen\blackberry10\splash-768x1280.png" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Plugins\com.chariotsolutions.nfc.plugin\Ndef.cs" />
@@ -211,34 +235,19 @@
         <Compile Include="Plugins\com.chariotsolutions.nfc.plugin\NfcPlugin.cs" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="www/config.xml" />
+        <Compile Include="Plugins\org.apache.cordova.device\Device.cs" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="www/cordova.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/css" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/index.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www/res" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\plugins\org.apache.cordova.vibration\www\vibration.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\plugins\org.apache.cordova.device\www\device.js" />
+        <Compile Include="Plugins\org.apache.cordova.vibration\Vibration.cs" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\plugins\com.chariotsolutions.nfc.plugin\www\phonegap-nfc.js" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="www\plugins\com.blackberry.invoke\www\client.js" />
+        <Content Include="www\plugins\org.apache.cordova.device\www\device.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.vibration\www\vibration.js" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\cordova_plugins.js" />
