@@ -9,7 +9,7 @@ The Android version will open the application when a tag with a Mime Media Recor
 ## Supported Platforms
  
  * [Android](#android)
- * [Windows Phone](#windows-phone-8)
+ * [Windows Phone 8](#windows-phone-8)
  * [BlackBerry 10](#blackberry-10)
 
 See the BlackBerry7 tag for the last version to support BlackBerry 7
@@ -63,13 +63,13 @@ Windows Phone NFC support is sketchy. Windows wants to grab and handle all NFC t
 ### Requires 
 
 * BlackBerry 10 device with NFC 
-* [BlackBerry Native SDK](http://dev.windowsphone.com/en-us/downloadsdk)
+* [BlackBerry Native SDK](http://developer.blackberry.com/native/download/)
 * Cordova CLI
 * [com.blackberry.invoke](http://plugins.cordova.io/#/com.blackberry.invoke) plugin (included in project)
 
 ### Running
 
-See the PhoneGap [http://docs.phonegap.com/en/3.1.0/guide_platforms_blackberry10_index.md.html#BlackBerry%2010%20Platform%20Guide](BlackBerry 10 Platform Guide) if you need help getting your environment configured.
+See the PhoneGap [BlackBerry 10 Platform Guide](http://docs.phonegap.com/en/3.1.0/guide_platforms_blackberry10_index.md.html#BlackBerry%2010%20Platform%20Guide) if you need help getting your environment configured.
 
 	$ cordova run blackberry10 --devicepass 123456
 	
