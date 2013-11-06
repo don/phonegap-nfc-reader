@@ -1,0 +1,7 @@
+#!/bin/sh
+CORDOVA_DIR=$(dirname "$0")
+source "$CORDOVA_DIR/init"
+
+#package app
+"$CORDOVA_NODE/node" "$CORDOVA_DIR/lib/build" "$@"
+

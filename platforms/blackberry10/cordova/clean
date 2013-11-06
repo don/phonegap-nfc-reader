@@ -1,0 +1,5 @@
+#!/bin/sh
+CORDOVA_DIR=$(dirname "$0")
+source "$CORDOVA_DIR/init"
+
+"$CORDOVA_NODE/node" "$CORDOVA_DIR/lib/clean"

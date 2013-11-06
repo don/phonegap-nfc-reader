@@ -1,0 +1,4 @@
+#!/bin/sh
+BIN_DIR=$(dirname "$0")
+source "$BIN_DIR/init"
+"$CORDOVA_NODE/node" "$BIN_DIR/lib/target" "$@"

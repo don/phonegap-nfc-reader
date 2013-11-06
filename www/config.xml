@@ -11,4 +11,14 @@
     <preference name="fullscreen" value="true" />
     <preference name="webviewbounce" value="true" />
     <content src="index.html" />
+    
+    <!-- open blackberry app when ANY NFC tag is scanned -->
+    <rim:invoke-target id="com.chariotsolutions.nfc.demo.reader.target">
+        <type>APPLICATION</type>
+        <filter>
+            <action>bb.action.OPEN</action>
+            <mime-type>application/vnd.rim.nfc.ndef</mime-type>
+            <property value="ndef://0,ndef://1,ndef://2,ndef://3,ndef://4" var="uris" />
+        </filter>
+    </rim:invoke-target>
 </widget>

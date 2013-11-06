@@ -25,9 +25,13 @@ Supported Platforms
  
 # Installing
 
-See [INSTALL.md](INSTALL.md) for details on how to install the nfc-plugin into your PhoneGap project.
+<!-- See [INSTALL.md](INSTALL.md) for details on how to install the nfc-plugin into your PhoneGap project. -->
 
-Phonegap 2.8.0 is required for Android and recommended for other platforms. BlackBerry and Windows Phone *should* work with Corodva 2.5 and greater.
+Phonegap 2.9.0+ is required for Android and recommended for other platforms. BlackBerry and Windows Phone *should* work with Corodva 2.5 and greater.
+
+**Cordova 3.0 is the recommended way to use phonegap-nfc, see [Getting Started Cordova CLI](https://github.com/chariotsolutions/phonegap-nfc/blob/master/doc/GettingStartedCLI.md).**
+
+[INSTALL.md](INSTALL.md) has **older** instructions for installing the nfc-plugin into your PhoneGap project.
 
 See the [doc](doc) directory for additional documentation.
 
@@ -45,6 +49,8 @@ See the [doc](doc) directory for additional documentation.
 - [nfc.share](#nfcshare)
 - [nfc.unshare](#nfcunshare)
 - [nfc.erase](#nfcerase)
+- [nfc.handover](#nfchandover)
+- [nfc.stopHandover](#nfcstophandover)
 
 ## nfc.addTagDiscoveredListener
 
@@ -254,6 +260,57 @@ This method *must* be called from within an NDEF Event Handler.
 - Android
 - BlackBerry 7
 
+## nfc.handover
+
+Send a file to another device via NFC handover.
+
+    var uri = "content://media/external/audio/media/175";
+    nfc.handover(uri, [onSuccess], [onFailure]);
+
+
+    var uris = [
+        "content://media/external/audio/media/175",
+        "content://media/external/audio/media/176",
+        "content://media/external/audio/media/348"        
+    ];
+    nfc.handover(uris, [onSuccess], [onFailure]);
+
+    
+### Parameters
+
+- __uri__: A URI as a String, or an *array* of URIs.
+- __onSuccess__: (Optional) The callback that is called when the message is pushed.
+- __onFailure__: (Optional) The callback that is called if there was an error.
+
+### Description
+
+Function `nfc.handover` shares files to a NFC peer using handover. Files are sent by specifying a file:// or context:// URI or a list of URIs. The file transfer is initiated with NFC but the transfer is completed with over Bluetooth or WiFi which is handled by a NFC handover request. The Android code is responsible for building the handover NFC Message.
+
+This is Android only, but it should be possible to add implementations for other platforms.
+
+### Supported Platforms
+
+- Android
+
+## nfc.stopHandover
+
+Stop sharing NDEF data via NFC handover.
+
+    nfc.stopHandover([onSuccess], [onFailure]);
+
+### Parameters
+
+- __onSuccess__: (Optional) The callback that is called when sharing stops.
+- __onFailure__: (Optional) The callback that is called if there was an error.
+
+### Description
+
+Function `nfc.stopHandover` stops sharing data via peer-to-peer.
+
+### Supported Platforms
+
+- Android
+
 # NDEF
 
 > The `ndef` object provides NDEF constants, functions for creating NdefRecords, and functions for converting data.
@@ -452,7 +509,7 @@ On BlackBerry 7, addTagDiscoveredListener does NOT scan non-NDEF tags.  Webworks
 
 # Launching your Application when Scanning a Tag
 
-  On Android, intents can be used to launch your application when a NFC tag is read.  This is optional and configured in AndroidManifest.xml.
+On Android, intents can be used to launch your application when a NFC tag is read.  This is optional and configured in AndroidManifest.xml.
 
     <intent-filter>
       <action android:name="android.nfc.action.NDEF_DISCOVERED" />
@@ -462,8 +519,9 @@ On BlackBerry 7, addTagDiscoveredListener does NOT scan non-NDEF tags.  Webworks
   
 Note: `data android:mimeType="text/pg"` should match the data type you specified in JavaScript
 
-  We have found it necessary to add `android:noHistory="true"` to the activity element so that scanning a tag launches the application after the user has pressed the home button.
+We have found it necessary to add `android:noHistory="true"` to the activity element so that scanning a tag launches the application after the user has pressed the home button.
 
+See the Android documentation for more information about [filtering for NFC intents](http://developer.android.com/guide/topics/connectivity/nfc/nfc.html#ndef-disc).
 
 Sample Projects
 ================
@@ -478,7 +536,7 @@ License
 
 The MIT License
 
-Copyright (c) 2011-2012 Chariot Solutions
+Copyright (c) 2011-2013 Chariot Solutions
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

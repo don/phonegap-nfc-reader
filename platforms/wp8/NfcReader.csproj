@@ -199,151 +199,10 @@
         </PostBuildEvent>
     </PropertyGroup>
     <ItemGroup>
-        <Content Include="www\config.xml" />
+        <Compile Include="Plugins\org.apache.cordova.device\Device.cs" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="www\cordova.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\css\index.css" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\index.html" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\js\handlebars.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\js\index.js" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\android\icon-36-ldpi.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\android\icon-48-mdpi.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\android\icon-72-hdpi.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\android\icon-96-xhdpi.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\bada\icon-128.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\bada-wac\icon-48-type5.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\bada-wac\icon-50-type3.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\bada-wac\icon-80-type4.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\blackberry\icon-80.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\ios\icon-57-2x.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\ios\icon-57.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\ios\icon-72-2x.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\ios\icon-72.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\tizen\icon-128.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\webos\icon-64.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\windows-phone\icon-173-tile.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\windows-phone\icon-48.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\icon\windows-phone\icon-62-tile.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\android\screen-hdpi-landscape.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\android\screen-hdpi-portrait.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\android\screen-ldpi-landscape.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\android\screen-ldpi-portrait.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\android\screen-mdpi-landscape.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\android\screen-mdpi-portrait.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\android\screen-xhdpi-landscape.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\android\screen-xhdpi-portrait.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\bada\screen-portrait.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\bada-wac\screen-type3.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\bada-wac\screen-type4.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\bada-wac\screen-type5.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\blackberry\screen-225.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\ios\screen-ipad-landscape-2x.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\ios\screen-ipad-landscape.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\ios\screen-ipad-portrait-2x.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\ios\screen-ipad-portrait.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\ios\screen-iphone-landscape-2x.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\ios\screen-iphone-landscape.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\ios\screen-iphone-portrait-2x.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\ios\screen-iphone-portrait-568h-2x.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\ios\screen-iphone-portrait.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\tizen\README.md" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\webos\screen-64.png" />
-    </ItemGroup>
-    <ItemGroup>
-        <Content Include="www\res\screen\windows-phone\screen-portrait.jpg" />
+        <Compile Include="Plugins\org.apache.cordova.vibration\Vibration.cs" />
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Plugins\com.chariotsolutions.nfc.plugin\Ndef.cs" />
@@ -352,19 +211,34 @@
         <Compile Include="Plugins\com.chariotsolutions.nfc.plugin\NfcPlugin.cs" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Plugins\org.apache.cordova.device\Device.cs" />
+        <Content Include="www/config.xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Plugins\org.apache.cordova.vibration\Vibration.cs" />
+        <Content Include="www/cordova.js" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="www\plugins\com.chariotsolutions.nfc.plugin\www\phonegap-nfc.js" />
+        <Content Include="www/css" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/index.html" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www/res" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\org.apache.cordova.vibration\www\vibration.js" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\plugins\org.apache.cordova.device\www\device.js" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="www\plugins\org.apache.cordova.vibration\www\vibration.js" />
+        <Content Include="www\plugins\com.chariotsolutions.nfc.plugin\www\phonegap-nfc.js" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="www\plugins\com.blackberry.invoke\www\client.js" />
     </ItemGroup>
     <ItemGroup>
         <Content Include="www\cordova_plugins.js" />
