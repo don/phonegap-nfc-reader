@@ -18,7 +18,8 @@
         <filter>
             <action>bb.action.OPEN</action>
             <mime-type>application/vnd.rim.nfc.ndef</mime-type>
-            <property value="ndef://0,ndef://1,ndef://2,ndef://3,ndef://4" var="uris" />
+            <!-- any TNF Empty(0), Well Known(1), MIME Media(2), Absolute URI(3), External(4) -->
+            <property var="uris" value="ndef://0,ndef://1,ndef://2,ndef://3,ndef://4" />
         </filter>
     </rim:invoke-target>
 </widget>
