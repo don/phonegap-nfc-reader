@@ -21,3 +21,5 @@ platforms/wp8/www/
 CordovaDeploy
 
 platforms/blackberry10/build/
+platforms
+plugins
