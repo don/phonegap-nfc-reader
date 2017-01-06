@@ -26,4 +26,5 @@
     <plugin name="cordova-plugin-device" spec="~1.1.4" />
     <plugin name="cordova-plugin-vibration" spec="~2.1.3" />
     <plugin name="phonegap-nfc" spec="~0.6.6" />
+    <plugin name="cordova-plugin-dialogs" spec="~1.3.1" />
 </widget>
